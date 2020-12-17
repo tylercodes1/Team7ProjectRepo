@@ -3,3 +3,8 @@ One user starts a motion, many users vote on motion, the final motion that gets 
 
 ### Pitch to businesses
 We help users decide where to spend to their time. We believe this can benefit businesses because we can help redirect and focus our users to your business. In a way, this is a form of non-traditional advertising that can bring large tickets (groups of people) to your business.
+
+### Finished Task
+
+Initialize project using Create React App
+https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381296
