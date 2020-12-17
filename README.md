@@ -12,7 +12,7 @@ https://dbdiagram.io/d/5fda9a379a6c525a03bb5f69
   - URL
   - Username
   - Password
- Please refer to the discord.....
+Please refer to the discord.....
 
 ### Finished Task
 Initialize project using Create React App https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381296  
