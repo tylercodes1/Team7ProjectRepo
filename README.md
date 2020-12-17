@@ -9,10 +9,10 @@ We help users decide where to spend to their time. We believe this can benefit b
 https://dbdiagram.io/d/5fda9a379a6c525a03bb5f69
 
 ### RDS
-  -URL
-  -Username
-  -Password
- Please refer to the discord.....
+  - URL
+  - Username
+  - Password
+  Please refer to the discord.....
 
 ### Finished Task
 Initialize project using Create React App https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381296  
