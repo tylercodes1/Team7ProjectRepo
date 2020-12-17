@@ -11,5 +11,4 @@ https://dbdiagram.io/d/5fda9a379a6c525a03bb5f69
 ### Finished Task
 Initialize project using Create React App https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381296  
 Add diagramDB.io backend mockup https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51236796
-
 Create the RDS for this project https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381116
