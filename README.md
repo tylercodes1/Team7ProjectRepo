@@ -9,7 +9,7 @@ We help users decide where to spend to their time. We believe this can benefit b
 https://dbdiagram.io/d/5fda9a379a6c525a03bb5f69
 
 ### RDS
-Please refer to the discord.....
+Please refer to discord.....
   - URL
   - Username
   - Password
