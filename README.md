@@ -18,7 +18,7 @@ Please refer to discord.....
 https://www.figma.com/file/qmbbySlR66hRrqoUnYe5mT/Food-Voting?node-id=0%3A1
 
 ### Finished Task
-Initialize project using Create React App https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381296 <br>  
+Initialize project using Create React App https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381296  
 Add diagramDB.io backend mockup https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51236796 <br>
 Create the RDS for this project https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381116 <br>
 Initialize project backend: https://github.com/erlhuang/foodconsensus-backend <br>
