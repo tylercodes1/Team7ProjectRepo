@@ -2,8 +2,7 @@ import React, {useState} from 'react'
 import { NavLink } from "react-router-dom";
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
-import { DrawerData } from './Drawer';
+import {DrawerData} from '../Drawer'
 import './NavBar.css';
 
 function NavBar() {

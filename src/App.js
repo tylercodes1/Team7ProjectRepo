@@ -1,9 +1,9 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 
 function App() {
   const [background, setBackground] = useState(false);
