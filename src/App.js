@@ -7,7 +7,6 @@ import NavBar from './components/NavBar/NavBar';
 
 function App() {
   const [background, setBackground] = useState(false);
-  const showBackground = () => setBackground(!background);
   function handleClick() {
     setBackground(!background);
   }
