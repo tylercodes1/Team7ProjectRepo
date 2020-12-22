@@ -5,17 +5,17 @@ import * as AiIcons from 'react-icons/ai';
 import {DrawerData} from '../Drawer'
 import './NavBar.css';
 
-function NavBar() {
+function NavBar({onNavBarClick}) {
     const [drawer, setDrawer] = useState(false);
     const showDrawer = () => setDrawer(!drawer);
     return ( 
         <>
-            <div className='navbar'>
-                <NavLink to='#' className='menu-bars'>
+            <div className='navbar' >
+                <NavLink to='#' className='menu-bars' onClick={onNavBarClick}>
                     <FaIcons.FaBars onClick = {showDrawer} />
                 </NavLink>
             </div>
-            <nav className = {drawer ? 'nav-menu active' : 'nav-menu'}>
+            <nav className = {drawer ? 'nav-menu active' : 'nav-menu'} onClick={onNavBarClick}>
                 <ul className='nav-menu-items' onClick = {showDrawer}>
                     <li className= 'navbar-toggle'>
                         <NavLink to='#' className = 'menu-bars'>
