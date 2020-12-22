@@ -13,8 +13,8 @@
 
 
 .showcase {
-  height: 1600px;
-  width: 1600px;
+  height: 100vh;
+
   margin-left: 250px;
   background-color: rgba(0, 0, 0, 0.4);
   transition: 400ms;
