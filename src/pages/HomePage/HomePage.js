@@ -1,8 +1,12 @@
-import React from 'react';
+import React from "react";
+import "./HomePage.css";
+import HomePageWelcome from "./../../components/HomePageWelcome/HomePageWelcome";
 export default class HomePage extends React.Component {
-    render() {
-        return (
-            <h1>This is home page</h1>
-        )
-    }
+  render() {
+    return (
+      <div className="home-page">
+        <HomePageWelcome></HomePageWelcome>
+      </div>
+    );
+  }
 }
