@@ -5,9 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import allReducers from './store/reducers/index';
 
-// I will pass reducer into this function later
-const store = createStore();
+// Pass reducer into this function as an argument. 
+// for example, we can pass in loginReducer
+const store = createStore(allReducers);
 
 ReactDOM.render(
   <React.StrictMode>
