@@ -24,4 +24,6 @@ Initialize project using Create React App https://github.com/tylercodes1/Team7Pr
 Add diagramDB.io backend mockup https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51236796 <br>
 Create the RDS for this project https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381116 <br>
 Initialize project backend: https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51381097 <br>
-Create v0 for frontend mockup https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51236846
+Create v0 for frontend mockup https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51236846 <br>
+Added NavBar/Drawer components frontend https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51515080 <br>
+JWT Research https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51515176 <br>
