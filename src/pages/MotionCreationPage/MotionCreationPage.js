@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./MotionCreationPage.css";
 import MultiSelector from "./../../components/MultiSelector/MultiSelector";
-
+import SelectedItems from "../../components/MultiSelector/SelectedItems/SelectedItems";
+import { FaLongArrowAltRight } from "react-icons/fa";
+import { IconContext } from "react-icons";
 export default function MotionCreationPage() {
   const [selectedRestaurants, setSelectedRestaurants] = useState([1, 3]);
 
@@ -33,7 +35,22 @@ export default function MotionCreationPage() {
                 setSelectedRestaurants(newSelected)
               }
             />
-            <div>SELECTED ITEMS</div>
+            <div id="vertically-aligned-items">
+              <SelectedItems selectedRestaurants={selectedRestaurants} />
+              <button
+                className={
+                  selectedRestaurants.length === 4
+                    ? "move-on-button move-on"
+                    : "move-on-button"
+                }
+                // disabled={selectedRestaurants.length !== 4}
+                onClick={() => console.log("hel")}
+              >
+                <IconContext.Provider value={{ size: "30px" }}>
+                  <FaLongArrowAltRight />
+                </IconContext.Provider>
+              </button>
+            </div>
           </div>
         </div>
       );

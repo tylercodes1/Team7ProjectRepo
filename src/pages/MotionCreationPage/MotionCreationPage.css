@@ -19,3 +19,28 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+#vertically-aligned-items {
+  height: calc(100% - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.move-on-button {
+  height: 60px;
+  width: 60px;
+  background-color: #c4c4c4;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+}
+
+.move-on {
+  background-color: #3f9db5;
+  cursor: pointer;
+}
