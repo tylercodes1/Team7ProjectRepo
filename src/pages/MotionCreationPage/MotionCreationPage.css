@@ -1,3 +1,4 @@
+/* Page 1 */
 .motion-creation-page-1 {
   /* display: flex;
   flex-direction: column;
@@ -18,6 +19,23 @@
   height: 100%;
   display: flex;
   justify-content: space-evenly;
+}
+
+/* Page 2 */
+.motion-creation-page-2 {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  padding-top: 120px;
+  position: relative;
+  height: calc(100% - 60px);
+  width: 100%;
+}
+
+.motion-creation-page-2 h1 {
+  text-align: start;
+  margin-left: 2vw;
 }
 
 #vertically-aligned-items {

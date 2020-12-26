@@ -6,8 +6,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 import { IconContext } from "react-icons";
 export default function MotionCreationPage() {
   const [selectedRestaurants, setSelectedRestaurants] = useState([1, 3]);
-
-  const action = 1;
+  const [action, setAction] = useState(1);
   switch (action) {
     case 1:
       return (
@@ -44,7 +43,7 @@ export default function MotionCreationPage() {
                     : "move-on-button"
                 }
                 // disabled={selectedRestaurants.length !== 4}
-                onClick={() => console.log("hel")}
+                onClick={() => setAction(action + 1)}
               >
                 <IconContext.Provider value={{ size: "30px" }}>
                   <FaLongArrowAltRight />
@@ -55,7 +54,11 @@ export default function MotionCreationPage() {
         </div>
       );
     case 2:
-      return <div>2</div>;
+      return (
+        <div className="motion-creation-page-2">
+          <h1>Choose {4 - selectedRestaurants.length} Restaurants!</h1>
+        </div>
+      );
 
     case 3:
       return <div>3</div>;
