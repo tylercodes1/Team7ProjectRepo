@@ -1,0 +1,14 @@
+.selected-items {
+  width: 150px;
+}
+
+.selected-item {
+  width: 100%;
+  background-color: #c4c4c4;
+  margin-top: 5px;
+  text-align: start;
+  padding-left: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
