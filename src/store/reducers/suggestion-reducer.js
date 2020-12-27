@@ -1,11 +1,16 @@
-const suggestionReducer = (state = { isAccept: false}, action) => {
+
+const defaultState = {
+    status: 'Pending'
+    
+}
+const suggestionReducer = (state = defaultState, action) => {
     switch (action.type) {
         case 'ACCEPT' :
-            return { isAccept: true};
+            return  { status: 'Accept'};
         case 'REJECT' :
-            return {isAccept: false};
+            return {status: 'Reject'};
         default :
-            return state;
+            return {status: 'Pending'};
     }  
 };
 export default suggestionReducer;

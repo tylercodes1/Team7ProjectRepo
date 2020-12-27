@@ -22,4 +22,10 @@ export const DrawerData = [
         icon: <GiIcons.GiVote />,
         cName: 'nav-text'
     },
+    {
+        title: 'ReduxExample',
+        path: '/reduxTest',
+        icon: <GiIcons.GiTestTubes />,
+        cName: 'nav-text'
+    },
 ]
