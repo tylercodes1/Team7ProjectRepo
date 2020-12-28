@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+
 import TestRedux from "./pages/TestRedux";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage/HomePage";
 import MotionPage from "./pages/Motion/MotionPage";
@@ -26,7 +27,7 @@ function App() {
         </Switch>
       </Router>
     </div>
-  );
+  )
 }
 
 export default App;
