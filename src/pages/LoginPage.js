@@ -1,8 +1,13 @@
 import React from 'react';
+import LoginComponent from '../components/Login/LoginComponent';
 export default class LoginPage extends React.Component {
     render() {
         return (
-            <h1>Login</h1>
+            <>
+                <div>
+                    <LoginComponent></LoginComponent>
+                </div>
+            </>
         )
     }
 }
