@@ -36,6 +36,26 @@ export default {
   lastMotionID: 2,
   choices: [
     {
+      id: 9,
+      proposal: "Panda Express",
+      owner_id: 2,
+    },
+    {
+      id: 10,
+      proposal: "Dairy Queen",
+      owner_id: 2,
+    },
+    {
+      id: 11,
+      proposal: "Olive Garden",
+      owner_id: 3,
+    },
+    {
+      id: 13,
+      proposal: "Chic-fil-a",
+      owner_id: 6,
+    },
+    {
       id: 14,
       proposal: "Burger King",
       owner_id: 2,

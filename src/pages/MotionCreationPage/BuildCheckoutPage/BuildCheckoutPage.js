@@ -7,12 +7,16 @@ import { CustomDialog } from "react-st-modal";
 import CustomDialogContent from "./CustomDialogContent";
 
 export default function BuildCheckoutPage(props) {
+  console.log(props);
   return (
     <div className="checkout-page">
       <h1>Does this look right?</h1>
       <div className="view-filler">
         <div className="summary-window">
-          <SelectedItems selectedItems={props.selectedRestaurants} />
+          <SelectedItems
+            type="Restaurant"
+            selectedItems={props.selectedRestaurants}
+          />
           <div className="summary-friend-view">
             {props.selectedFriends.map((el, key) => buildFriend(el, key))}
           </div>
@@ -43,12 +47,13 @@ export default function BuildCheckoutPage(props) {
 }
 
 function buildFriend(selectedFriend, key) {
+  console.log(selectedFriend);
   return (
     <div className="summary-friend-item" key={key}>
       <div className="summary-profile-icon">
         <BsPersonFill></BsPersonFill>
       </div>
-      <p>friend id: {selectedFriend}</p>
+      <p>friend id: {selectedFriend.proposal}</p>
     </div>
   );
 }

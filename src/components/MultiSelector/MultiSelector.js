@@ -4,7 +4,7 @@ import { GoCheck } from "react-icons/go";
 import { IconContext } from "react-icons";
 
 export default function MultiSelector(props) {
-  console.log(props.setSelectedItems);
+  console.log(props.selectedItems);
   console.log(props.items);
 
   return (
@@ -34,12 +34,12 @@ function BuildItem(type, index, item, selectedItems, setSelectedItems) {
               // if 4 choices have already been selected AND
               // if the current item being clicked is being "unselected"
               // unselect item from list
-              if (selectedItems.includes(item.id)) {
+              if (selectedItems.includes(item)) {
                 setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
               }
             }
           : () => {
-              if (selectedItems.includes(item.id)) {
+              if (selectedItems.includes(item)) {
                 setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
               } else {
                 setSelectedItems([...selectedItems, item]);
@@ -48,7 +48,7 @@ function BuildItem(type, index, item, selectedItems, setSelectedItems) {
       }
     >
       {/* Conditionally rendered checkmark */}
-      {selectedItems.includes(item.id) && (
+      {selectedItems.includes(item) && (
         <div className="checked-item">
           <IconContext.Provider
             value={{
