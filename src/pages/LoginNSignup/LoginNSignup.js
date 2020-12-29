@@ -1,10 +1,9 @@
 import React from 'react';
-import './LoginPage.css';
+import './LoginNSignup.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../store/actions/actionTypes';
-import "../CreateNewUserPage/CreateNewUserPage.css";
 
-function LoginPage() {
+function LoginNSignup() {
     const isLogged = useSelector(state => state.isLogged);
     const dispatch = useDispatch();
 
@@ -37,4 +36,4 @@ function LoginPage() {
     )
 
         }
-    export default LoginPage;
+    export default LoginNSignup;
