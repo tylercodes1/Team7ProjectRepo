@@ -9,7 +9,7 @@ function CreateNewUserPage() {
                 <input type='text' name="username" placeholder="username" />
                 <input type='text' name="password" placeholder="password" />
                 <input type='text' name="confirm-password" placeholder="confirm-password" />
-                <input type='submit' value="Login" />
+                <input type='submit' value="Create User" />
             </form>
 
         </div>
