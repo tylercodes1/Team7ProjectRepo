@@ -2,12 +2,13 @@ import React from "react";
 import "./SelectedItems.css";
 
 export default function SelectedItems(props) {
+  console.log(props);
   return (
     <div className="selected-items">
-      <p>Selected Restaurants</p>
-      {props.selectedRestaurants.map((el, index) => (
+      <p>{props.type !== undefined && `Selected ${props.type}`}</p>
+      {props.selectedItems.map((el, index) => (
         <div className="selected-item" key={index}>
-          {el} aslkdjfsalkd jflkdsajflkdsa jjf
+          {el.proposal}
         </div>
       ))}
     </div>

@@ -1,5 +1,5 @@
 /* Page 1 */
-.motion-creation-page-1 {
+.motion-creation-page {
   /* display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,32 +10,18 @@
   width: 100%;
 }
 
-.motion-creation-page-1 h1 {
+.motion-creation-page h1 {
   text-align: start;
   margin-left: 2vw;
 }
 
 .creation-view {
+  margin: 0;
+  padding: 0;
+  position: relative;
   height: 100%;
   display: flex;
   justify-content: space-evenly;
-}
-
-/* Page 2 */
-.motion-creation-page-2 {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; */
-  padding-top: 120px;
-  position: relative;
-  height: calc(100% - 60px);
-  width: 100%;
-}
-
-.motion-creation-page-2 h1 {
-  text-align: start;
-  margin-left: 2vw;
 }
 
 #vertically-aligned-items {
@@ -44,6 +30,65 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+}
+
+.view-filler {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkout-page {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  padding-top: 80px;
+  position: relative;
+  height: calc(100% - 60px);
+  width: 100%;
+}
+
+.checkout-page h1 {
+  margin-left: 2vw;
+  text-align: start;
+}
+
+.summary-window {
+  padding-top: 10px;
+  background-color: lightcyan;
+  height: 500px;
+  width: 400px;
+  /* margin-left: 50vw; */
+}
+
+.summary-friend-view {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  height: 175px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.summary-friend-item {
+  padding: 5px 0px 5px 40px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.summary-profile-icon {
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  background-color: #cf5c36;
+  border-radius: 50%;
 }
 
 .move-on-button {
@@ -61,4 +106,8 @@
 .move-on {
   background-color: #3f9db5;
   cursor: pointer;
+}
+
+.finish-up {
+  margin: 10px auto 0 auto;
 }

@@ -4,48 +4,51 @@ import { GoCheck } from "react-icons/go";
 import { IconContext } from "react-icons";
 
 export default function MultiSelector(props) {
-  console.log(props.setSelectedRestaurants);
+  console.log(props.setSelectedItems);
+  console.log(props.items);
 
   return (
     <div className="multi-selector">
-      {props.data.map((el, index) =>
+      {props.items.map((el, index) =>
         BuildItem(
+          props.type,
           index,
-          props.selectedRestaurants,
-          props.setSelectedRestaurants
+          el,
+          props.selectedItems,
+          props.setSelectedItems
         )
       )}
     </div>
   );
 }
 
-function BuildItem(index, selectedRestaurants, setSelectedRestaurants) {
+function BuildItem(type, index, item, selectedItems, setSelectedItems) {
   return (
+    // div is big because it has lots of conditional onclick-functionality
     <div
       className="selection-item"
       key={index}
       onClick={
-        selectedRestaurants.length === 4
+        selectedItems.length === 4
           ? () => {
-              if (selectedRestaurants.includes(index)) {
-                setSelectedRestaurants(
-                  selectedRestaurants.filter((i) => i !== index)
-                );
+              // if 4 choices have already been selected AND
+              // if the current item being clicked is being "unselected"
+              // unselect item from list
+              if (selectedItems.includes(item.id)) {
+                setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
               }
             }
           : () => {
-              if (selectedRestaurants.includes(index)) {
-                //   console.log(selectedRestaurants.filter(index => ));
-                setSelectedRestaurants(
-                  selectedRestaurants.filter((i) => i !== index)
-                );
+              if (selectedItems.includes(item.id)) {
+                setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
               } else {
-                setSelectedRestaurants([...selectedRestaurants, index]);
+                setSelectedItems([...selectedItems, item]);
               }
             }
       }
     >
-      {selectedRestaurants.includes(index) && (
+      {/* Conditionally rendered checkmark */}
+      {selectedItems.includes(item.id) && (
         <div className="checked-item">
           <IconContext.Provider
             value={{
@@ -56,7 +59,11 @@ function BuildItem(index, selectedRestaurants, setSelectedRestaurants) {
           </IconContext.Provider>
         </div>
       )}
-      <div>{index} Yo MAMA</div>
+      {/* // TODO image + words */}
+      {type === "Restaurants" && <div>{item.proposal}</div>}
+      {type === "Friends" && <div>build Persons</div>}
+      {/* <RestaurantItem /> <PersonItem />*/}
+      {/* <div>{index} Yo MAMA</div> */}
     </div>
   );
 }

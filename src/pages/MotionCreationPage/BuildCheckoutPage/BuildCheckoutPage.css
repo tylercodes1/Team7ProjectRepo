@@ -1,0 +1,15 @@
+.custom-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.api-validation {
+  display: grid;
+  row-gap: 5px;
+  column-gap: 5px;
+  align-items: center;
+  justify-items: center;
+  overflow-y: auto;
+  grid-template-columns: 1fr 1fr;
+}

@@ -1,66 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MotionCreationPage.css";
-import MultiSelector from "./../../components/MultiSelector/MultiSelector";
 import SelectedItems from "../../components/MultiSelector/SelectedItems/SelectedItems";
-import { FaLongArrowAltRight } from "react-icons/fa";
+import { GiKnifeFork } from "react-icons/gi";
 import { IconContext } from "react-icons";
+import { BsPersonFill } from "react-icons/bs";
+import { CustomDialog, useDialog } from "react-st-modal";
+import BuildMotionCreationPage from "./BuildMotionCreationPage/BuildMotionCreationPage";
+import BuildCheckoutPage from "./BuildCheckoutPage/BuildCheckoutPage";
+import { getChoices } from "../../api/api";
+
 export default function MotionCreationPage() {
-  const [selectedRestaurants, setSelectedRestaurants] = useState([1, 3]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [selectedRestaurants, setSelectedRestaurants] = useState([]);
+  const [selectedFriends, setSelectedFriends] = useState([]);
   const [action, setAction] = useState(1);
+  const [open, setOpen] = useState(false);
+
+  function handleClick(type, selectedItems) {
+    if (type === "Restaurants") {
+      if (selectedItems.length === 4) {
+        setAction(action + 1);
+      }
+    } else {
+      setAction(action + 1);
+    }
+  }
+
+  useEffect(async () => {
+    const result = await getChoices();
+    setRestaurants(result);
+    console.log(result);
+  }, []);
+
   switch (action) {
     case 1:
+      // TODO API call for Restaurants
       return (
-        <div className="motion-creation-page-1">
-          <h1>Choose {4 - selectedRestaurants.length} Restaurants!</h1>
-          <div className="creation-view">
-            <MultiSelector
-              itemType="Restaurants"
-              data={[
-                { dat: 1 },
-                { dat: 2 },
-                { dat: 3 },
-                { dat: 4 },
-                { dat: 1 },
-                { dat: 2 },
-                { dat: 3 },
-                { dat: 4 },
-                { dat: 1 },
-                { dat: 2 },
-                { dat: 3 },
-                { dat: 4 },
-              ]}
-              selectedRestaurants={selectedRestaurants}
-              setSelectedRestaurants={(newSelected) =>
-                setSelectedRestaurants(newSelected)
-              }
-            />
-            <div id="vertically-aligned-items">
-              <SelectedItems selectedRestaurants={selectedRestaurants} />
-              <button
-                className={
-                  selectedRestaurants.length === 4
-                    ? "move-on-button move-on"
-                    : "move-on-button"
-                }
-                // disabled={selectedRestaurants.length !== 4}
-                onClick={() => setAction(action + 1)}
-              >
-                <IconContext.Provider value={{ size: "30px" }}>
-                  <FaLongArrowAltRight />
-                </IconContext.Provider>
-              </button>
-            </div>
-          </div>
-        </div>
+        <BuildMotionCreationPage
+          type="Restaurants"
+          items={restaurants}
+          selectedItems={selectedRestaurants}
+          setSelectedItems={setSelectedRestaurants}
+          handleClick={handleClick}
+        />
       );
+
     case 2:
+      // TODO API Call for Friends
       return (
-        <div className="motion-creation-page-2">
-          <h1>Choose {4 - selectedRestaurants.length} Restaurants!</h1>
-        </div>
+        <BuildMotionCreationPage
+          type="Friends"
+          items={restaurants}
+          selectedItems={selectedFriends}
+          setSelectedItems={setSelectedFriends}
+          handleClick={handleClick}
+        />
       );
 
     case 3:
-      return <div>3</div>;
+      return (
+        <BuildCheckoutPage
+          selectedFriends={selectedFriends}
+          selectedRestaurants={selectedRestaurants}
+        ></BuildCheckoutPage>
+      );
   }
 }
