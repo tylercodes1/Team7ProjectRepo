@@ -7,6 +7,8 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage/HomePage";
 import MotionPage from "./pages/Motion/MotionPage";
+import CreateNewUserPage from "./pages/CreateNewUserPage/CreateNewUserPage";
+
 
 function App() {
   const [background, setBackground] = useState(false);
@@ -23,6 +25,7 @@ function App() {
           <Route exact path="/motion" component={MotionPage} />
           <Route exact path="/reduxTest" component={TestRedux} />
 
+          <Route exact path="/newuser" component={CreateNewUserPage} />
           <Route path="/" render={() => <div>404 NOT FOUND :)</div>} />
         </Switch>
       </Router>

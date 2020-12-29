@@ -4,7 +4,7 @@
     height: 400px;
     padding: 30px 38px;
     margin-top: 150px;
-    margin-left: 600px;
+    margin-left: 750px;
     cursor: default;
 
     background-color: #B8D1D3;
@@ -22,6 +22,22 @@
     /* background-color: #b8b8b8; */
     /* margin-top: -20px; */
 }
+
+.newuser-page [type = "text"], .newuser [type = "text"] {
+    margin-top: 20px;
+    padding: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.newuser-page [type = "submit"], .newuser [type = "submit"]{
+    float: right;
+    margin-top: 30px;
+    padding: 10px 68px;
+    box-sizing: border-box;
+    width: 100%;
+ }
 
 .newuser-page [type = "submit"]:hover {
     box-shadow: 0 8px 10px rgba(212, 211, 211, 0), 0 5px 8px 0 rgba(0, 0, 0, 2);
