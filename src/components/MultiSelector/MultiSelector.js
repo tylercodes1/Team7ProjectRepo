@@ -9,15 +9,16 @@ export default function MultiSelector(props) {
 
   return (
     <div className="multi-selector">
-      {props.items.map((el, index) =>
-        BuildItem(
-          props.type,
-          index,
-          el,
-          props.selectedItems,
-          props.setSelectedItems
-        )
-      )}
+      {props.items !== undefined &&
+        props.items.map((el, index) =>
+          BuildItem(
+            props.type,
+            index,
+            el,
+            props.selectedItems,
+            props.setSelectedItems
+          )
+        )}
     </div>
   );
 }
@@ -60,8 +61,8 @@ function BuildItem(type, index, item, selectedItems, setSelectedItems) {
         </div>
       )}
       {/* // TODO image + words */}
-      {type === "Restaurants" && <div>{item.proposal}</div>}
-      {type === "Friends" && <div>build Persons</div>}
+      {type === "Restaurants" && <div>{item.name}</div>}
+      {type === "Friends" && <div>{item.name}</div>}
       {/* <RestaurantItem /> <PersonItem />*/}
       {/* <div>{index} Yo MAMA</div> */}
     </div>

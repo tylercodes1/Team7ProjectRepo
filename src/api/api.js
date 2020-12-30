@@ -1,6 +1,17 @@
 import db from "./dummydb";
+import Axios from "axios";
 
-let currentUser = undefined;
+let currentUser = {
+  id: 4,
+  name: "Tyler",
+  password: "password1",
+  isAdmin: false,
+};
+
+export async function hello() {
+  const result = await Axios.get("http://localhost:8081/hello");
+  console.log(result);
+}
 
 //Users
 export async function login(username, password) {
@@ -74,9 +85,9 @@ export async function getMotions() {
 }
 
 export async function addMotion(motionDTO) {
-  if (!currentUser) {
-    return;
-  }
+  // if (!currentUser) {
+  //   return;
+  // }
   const motionToAdd = {
     ...motionDTO,
     id: ++db.lastMotionID,
@@ -84,6 +95,25 @@ export async function addMotion(motionDTO) {
   };
   db.motions.push(motionToAdd);
   return motionToAdd;
+}
+
+export async function addMotionUser(motionUser) {
+  const motionUserToAdd = {
+    ...motionUser,
+    motion_user_id: ++db.lastMotionID,
+    vote_id: -1,
+  };
+  db.motion_user.push(motionUserToAdd);
+  return motionUserToAdd;
+}
+
+export async function addMotionChoice(motionChoice) {
+  const motionChoiceToAdd = {
+    ...motionChoice,
+    motion_choice_id: ++db.lastMotionChoiceID,
+  };
+  db.motion_user.push(motionChoiceToAdd);
+  return motionChoiceToAdd;
 }
 
 export async function getChoices() {
