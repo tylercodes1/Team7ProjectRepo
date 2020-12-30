@@ -27,3 +27,4 @@ Initialize project backend: https://github.com/tylercodes1/Team7ProjectRepo/proj
 Create v0 for frontend mockup https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51236846 <br>
 Added NavBar/Drawer components frontend https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51515080 <br>
 JWT Research https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51515176 <br>
+Spring Boot Security https://github.com/tylercodes1/Team7ProjectRepo/projects/1#card-51750506 <br>

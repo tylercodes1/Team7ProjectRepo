@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   height: calc(100% - 60px);
   width: 100%;
 }
+/* position property cannot be fixed, relative, or absolute because it caused NavBar items unclickable */
