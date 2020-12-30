@@ -1,5 +1,6 @@
-import React, {useState}from 'react';
-import {Login} from '../../api/api';
+import React, { useState } from 'react';
+import axios from "axios"
+import { Login } from '../../api/api';
 import './LoginNSignup.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../store/actions/actionTypes';
@@ -13,12 +14,19 @@ function LoginNSignup() {
         password: ''
     });
 
-    const doLogin = async(e) => {
+    const [signupFormData, setSignupFormData] = useState({
+        name: "",
+        password: "",
+        confirmPass: ""
+    })
+
+    const doLogin = async (e) => {
         e.preventDefault();
-        try{
+        handleLogin(e)
+        try {
             await Login(formData.username, formData.password);
             console.log("clicked");
-        }catch {
+        } catch {
             console.log("couldn't login");
         }
     }
@@ -29,6 +37,40 @@ function LoginNSignup() {
             [e.target.name]: e.target.value
         });
     }
+
+    const handleLogin = (event) => {
+        event.preventDefault()
+        axios.post("http://localhost:5000/api/auth/signin", {
+            name: formData.username,
+            password: formData.password
+        })
+            .then(response => {
+                console.log("Successful user login: ", response.data)
+                localStorage.setItem("token", response.data.accessToken)
+            })
+            .catch(error => console.log(error))
+    }
+
+    const handleSignupFormChange = (event) => {
+        setSignupFormData({
+            ...signupFormData,
+            [event.target.name]: event.target.value
+        })
+    }
+
+    const handleSignUp = (event) => {
+        event.preventDefault()
+        if (signupFormData.password == signupFormData.confirmPass) {
+            axios.post("http://localhost:5000/api/auth/signup", signupFormData)
+                .then(response => {
+                    console.log("Successful user creation: ", response.data)
+                })
+                .catch(error => console.log(error))
+        } else {
+            console.log("password and confirmed passwords do not match, please spell better.")
+        }
+    }
+
     return (
         <div>
             { isLogged ?
@@ -36,8 +78,8 @@ function LoginNSignup() {
                     <h1>Login</h1>
                     <h1 onClick={() => dispatch(login())}>Sign-up</h1>
                     <form onSubmit={doLogin}>
-                        <input type='text' name="username" placeholder="username" value={formData['username']} onChange={handleChange}/>
-                        <input type='text' name="password" placeholder="password" value={formData['password']} onChange={handleChange}/>
+                        <input type='text' name="username" placeholder="username" value={formData['username']} onChange={handleChange} />
+                        <input type='text' name="password" placeholder="password" value={formData['password']} onChange={handleChange} />
                         <input type='submit' value="Login" />
                     </form>
 
@@ -46,10 +88,10 @@ function LoginNSignup() {
                 <div className="newuser-page">
                     <h1 onClick={() => dispatch(login())}>Login</h1>
                     <h1> Sign-Up</h1>
-                    <form >
-                        <input type='text' name="username" placeholder="username" />
-                        <input type='text' name="password" placeholder="password" />
-                        <input type='text' name="confirm-password" placeholder="confirm-password" />
+                    <form onSubmit={handleSignUp}>
+                        <input type='text' name="name" placeholder="username" value={signupFormData.name} onChange={handleSignupFormChange} />
+                        <input type='text' name="password" placeholder="password" value={signupFormData.password} onChange={handleSignupFormChange} />
+                        <input type='text' name="confirmPass" placeholder="confirm-password" value={signupFormData.confirmPass} onChange={handleSignupFormChange} />
                         <input type='submit' value="Create User" />
                     </form>
                 </div>
@@ -57,5 +99,5 @@ function LoginNSignup() {
         </div>
     )
 
-        }
-    export default LoginNSignup;
+}
+export default LoginNSignup;
