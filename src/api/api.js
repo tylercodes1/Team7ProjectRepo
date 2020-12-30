@@ -3,7 +3,7 @@ import db from "./dummydb";
 let currentUser = undefined;
 
 //Users
-export async function login(username, password) {
+export async function Login(username, password) {
     for(let i = 0; i < db.users.length; i++){
         const u = db.users[i];
         if (u.name === username && u.password === password){
@@ -11,7 +11,6 @@ export async function login(username, password) {
             return;
         }
     }
-
     throw new Error('User not found  or password incorrect');
 }
 
