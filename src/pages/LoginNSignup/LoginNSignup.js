@@ -47,6 +47,10 @@ function LoginNSignup() {
             .then(response => {
                 console.log("Successful user login: ", response.data)
                 localStorage.setItem("token", response.data.accessToken)
+                localStorage.setItem("name", response.data.name)
+                localStorage.setItem("id", response.data.id)
+                localStorage.setItem("admin", response.data.admin)
+                //Need to store the user name and id as well
             })
             .catch(error => console.log(error))
     }
