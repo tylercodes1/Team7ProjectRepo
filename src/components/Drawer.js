@@ -28,4 +28,10 @@ export const DrawerData = [
         icon: <GiIcons.GiTestTubes />,
         cName: 'nav-text'
     },
+    {
+      title: "MotionCreation",
+      path: "motion-creation",
+      icon: <AiIcons.AiFillPlusCircle />,
+      cName: "nav-text",
+    },
 ]
