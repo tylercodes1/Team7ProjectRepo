@@ -1,8 +1,4 @@
-.App {
-  height: 100%;
-  width: 100%;
-  text-align: center;
-}
+/* I removed css of .app because I need setup conditional rendering for Navbar */
 #root {
   height: 100%;
   width: 100%;
@@ -23,16 +19,17 @@
   }
 }
 
-.showcase {
-  height: 1600px;
-  width: 1600px;
+/* NavBar pops out, full screen move to right side and darker animation */
+ .showcase {
+  height: 100vh;
+  width: 100vw;
   margin-left: 250px;
   background-color: rgba(0, 0, 0, 0.4);
   transition: 400ms;
-  /* transition: var(--transition-delay); */
-}
-.showcase.shank {
+ transition: var(--transition-delay); 
+ }
+.showcase.Shrink {
   margin-left: 0;
   background-color: white;
   transition: var(--transition-delay);
-}
+} 
