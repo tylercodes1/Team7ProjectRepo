@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage/HomePage";
 import MotionCreationPage from "./pages/MotionCreationPage/MotionCreationPage";
+import MotionVotingPage from "./pages/MotionVotingPage/MotionVotingPage";
 
 function App() {
   const [background, setBackground] = useState(false);
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/motion-creation" component={MotionCreationPage} />
+          <Route exact path="/motion-vote" component={MotionVotingPage} />
           <Route path="/" render={() => <div>404 NOT FOUND :)</div>} />
         </Switch>
       </Router>

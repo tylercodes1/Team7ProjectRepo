@@ -7,10 +7,11 @@ import { BsPersonFill } from "react-icons/bs";
 import { CustomDialog, useDialog } from "react-st-modal";
 import BuildMotionCreationPage from "./BuildMotionCreationPage/BuildMotionCreationPage";
 import BuildCheckoutPage from "./BuildCheckoutPage/BuildCheckoutPage";
-import { getChoices } from "../../api/api";
+import { addMotion, getChoices, getUsers } from "../../api/api";
 
 export default function MotionCreationPage() {
   const [restaurants, setRestaurants] = useState([]);
+  const [friends, setFriends] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [action, setAction] = useState(1);
@@ -27,9 +28,13 @@ export default function MotionCreationPage() {
   }
 
   useEffect(async () => {
-    const result = await getChoices();
-    setRestaurants(result);
-    console.log(result);
+    const restaurantsResult = await getChoices();
+    const friendsResult = await getUsers();
+    // console.log(await addMotion({ title: "motion3" }));
+    console.log(restaurantsResult);
+    console.log(friendsResult);
+    setRestaurants(restaurantsResult);
+    setFriends(friendsResult);
   }, []);
 
   switch (action) {
@@ -50,7 +55,7 @@ export default function MotionCreationPage() {
       return (
         <BuildMotionCreationPage
           type="Friends"
-          items={restaurants}
+          items={friends}
           selectedItems={selectedFriends}
           setSelectedItems={setSelectedFriends}
           handleClick={handleClick}

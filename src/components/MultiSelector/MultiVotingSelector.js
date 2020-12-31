@@ -3,22 +3,21 @@ import "./MultiSelector.css";
 import { GoCheck } from "react-icons/go";
 import { IconContext } from "react-icons";
 
-export default function MultiSelector(props) {
+export default function MultiVotingSelector(props) {
   console.log(props.selectedItems);
   console.log(props.items);
 
   return (
     <div className="multi-selector">
-      {props.items !== undefined &&
-        props.items.map((el, index) =>
-          BuildItem(
-            props.type,
-            index,
-            el,
-            props.selectedItems,
-            props.setSelectedItems
-          )
-        )}
+      {props.items.map((el, index) =>
+        BuildItem(
+          props.type,
+          index,
+          el,
+          props.selectedItems,
+          props.setSelectedItems
+        )
+      )}
     </div>
   );
 }
@@ -62,8 +61,10 @@ function BuildItem(type, index, item, selectedItems, setSelectedItems) {
       )}
       {/* // TODO image + words */}
       {type === "Restaurants" && <div>{item.name}</div>}
-      {type === "Friends" && <div>{item.name}</div>}
-      
+      {type === "Friends" && <div>build Persons</div>}
+      {type === "Vote" && <div>{item.name}</div>}
+      {type === "Suggestion" && <div>{item.name}</div>}
+      {type === "Vote-Page" && <div>{item.name}</div>}
       {/* <RestaurantItem /> <PersonItem />*/}
       {/* <div>{index} Yo MAMA</div> */}
     </div>

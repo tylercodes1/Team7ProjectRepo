@@ -5,9 +5,7 @@
 }
 
 .api-validation {
-  display: grid;
-  row-gap: 5px;
-  column-gap: 5px;
+  display: flex;
   align-items: center;
   justify-items: center;
   overflow-y: auto;

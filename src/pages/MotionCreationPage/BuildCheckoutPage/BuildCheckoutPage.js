@@ -1,12 +1,19 @@
-import { React } from "react";
+import React, { useState } from "react";
 import SelectedItems from "./../../../components/MultiSelector/SelectedItems/SelectedItems";
 import { IconContext } from "react-icons";
 import { BsPersonFill } from "react-icons/bs";
 import { GiKnifeFork } from "react-icons/gi";
 import { CustomDialog } from "react-st-modal";
 import CustomDialogContent from "./CustomDialogContent";
+import { Redirect } from "react-router-dom";
 
 export default function BuildCheckoutPage(props) {
+  const [redirect, setRedirect] = useState(false);
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
   console.log(props);
   return (
     <div className="checkout-page">
@@ -34,6 +41,11 @@ export default function BuildCheckoutPage(props) {
                 }
               );
               console.log(result);
+              if (!result) {
+                alert("Cannot connect to servers");
+              } else {
+                setRedirect(true);
+              }
             }}
           >
             <IconContext.Provider value={{ size: "30px" }}>
@@ -53,7 +65,7 @@ function buildFriend(selectedFriend, key) {
       <div className="summary-profile-icon">
         <BsPersonFill></BsPersonFill>
       </div>
-      <p>friend id: {selectedFriend.proposal}</p>
+      <p>{selectedFriend.name}</p>
     </div>
   );
 }

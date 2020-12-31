@@ -8,7 +8,7 @@ export default function SelectedItems(props) {
       <p>{props.type !== undefined && `Selected ${props.type}`}</p>
       {props.selectedItems.map((el, index) => (
         <div className="selected-item" key={index}>
-          {el.proposal}
+          {el.name}
         </div>
       ))}
     </div>
