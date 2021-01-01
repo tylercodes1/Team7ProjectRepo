@@ -119,6 +119,9 @@ export async function addMotionChoice(motionChoice) {
 export async function getChoices() {
   return db.choices;
 }
+export async function getMotionChoices() {
+  return db.motionChoices;
+}
 
 setTimeout(() => {
   addMotion({ title: "hello" }).then((m) => {

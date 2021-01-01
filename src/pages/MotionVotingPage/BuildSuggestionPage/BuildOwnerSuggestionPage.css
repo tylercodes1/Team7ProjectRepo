@@ -1,0 +1,12 @@
+
+.move-on-button.move-on{
+    display: inline;
+    
+}
+.Suggestion-window {
+    height: 40vh;
+    background-color: paleturquoise;
+}
+.selected-items {
+    flex-direction: row;
+}
