@@ -63,7 +63,7 @@ function BuildItem(type, index, item, selectedItems, setSelectedItems) {
       {/* // TODO image + words */}
       {type === "Restaurants" && <div>{item.name}</div>}
       {type === "Friends" && <div>{item.name}</div>}
-      
+
       {/* <RestaurantItem /> <PersonItem />*/}
       {/* <div>{index} Yo MAMA</div> */}
     </div>

@@ -14,7 +14,7 @@ export async function hello() {
 }
 
 //Users
-export async function login(username, password) {
+export async function Login(username, password) {
   for (let i = 0; i < db.users.length; i++) {
     const u = db.users[i];
     if (u.name === username && u.password === password) {
