@@ -6,6 +6,7 @@ import TestRedux from "./pages/TestRedux";
 import LoginNSignup from "./pages/LoginNSignup/LoginNSignup";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage/HomePage";
+import MotionCreationPage from "./pages/MotionCreationPage/MotionCreationPage";
 import MotionPage from "./pages/Motion/MotionPage";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <NavBar onNavBarClick={handleClick}></NavBar>
         <Switch>
           <Route exact path="/" component={HomePage} />
+          <Route exact path="/motion-creation" component={MotionCreationPage} />
           <Route exact path="/login" component={LoginNSignup} />
           <Route exact path="/motion" component={MotionPage} />
           <Route exact path="/reduxTest" component={TestRedux} />

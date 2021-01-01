@@ -1,0 +1,35 @@
+.multi-selector {
+  /* height: calc(100% - 60px); */
+  /* position: absolute; */
+  /* left: calc(100vw - 700px); */
+  height: calc(100% - 120px);
+  width: 700px;
+  display: grid;
+  row-gap: 5px;
+  column-gap: 5px;
+  align-items: center;
+  justify-items: center;
+  overflow-y: auto;
+  grid-template-columns: 1fr 1fr;
+}
+
+.selection-item {
+  position: relative;
+  padding: 10px;
+  background-color: #c4c4c4;
+  height: 150px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.checked-item {
+  position: absolute;
+  right: 20px;
+  background-color: #3f9db5;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
