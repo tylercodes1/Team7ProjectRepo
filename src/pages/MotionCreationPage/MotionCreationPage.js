@@ -11,7 +11,9 @@ import { addMotion, getChoices, getUsers } from "../../api/api";
 
 export default function MotionCreationPage() {
   const [restaurants, setRestaurants] = useState([]);
+  const [selectedRestaurantIDs, setSelectedRestaurantIDs] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [selectedFriendIDs, setSelectedFriendIDs] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [action, setAction] = useState(1);
@@ -27,21 +29,28 @@ export default function MotionCreationPage() {
     }
   }
 
-  useEffect(() => {
+  function handleRestaurants(selectedChoices) {
+    setSelectedRestaurants(selectedChoices);
+    setSelectedRestaurantIDs(selectedChoices.map((el) => el.id));
+  }
+
+  function handleFriends(selectedChoices) {
+    setSelectedFriends(selectedChoices);
+    setSelectedFriendIDs(selectedChoices.map((el) => el.id));
+  }
+
+  useEffect(async () => {
     let mounted = true;
 
-    const poll = async() => {
+    const poll = async () => {
       if (!mounted) {
         return;
       }
 
-      console.log('polling');
-      
+      console.log("polling");
+
       const restaurantsResult = await getChoices();
       const friendsResult = await getUsers();
-      // console.log(await addMotion({ title: "motion3" }));
-      //console.log(restaurantsResult);
-      //console.log(friendsResult);
       setRestaurants(restaurantsResult);
       setFriends(friendsResult);
 
@@ -61,18 +70,16 @@ export default function MotionCreationPage() {
       //   }
       // });
 
-      setSelectedRestaurants(selectedRestaurants);
-
       setTimeout(() => poll(), 2500);
     };
 
-    const onMount = async() => {
-      console.log('mounting');
+    const onMount = async () => {
+      console.log("mounting");
       poll();
     };
 
     const onUnmount = async () => {
-      console.log('running unmounted');
+      console.log("running unmounted");
       mounted = false;
     };
 
@@ -92,7 +99,8 @@ export default function MotionCreationPage() {
           type="Restaurants"
           items={restaurants}
           selectedItems={selectedRestaurants}
-          setSelectedItems={setSelectedRestaurants}
+          selectedItemIDs={selectedRestaurantIDs}
+          setSelectedItems={handleRestaurants}
           handleClick={handleClick}
         />
       );
@@ -104,7 +112,8 @@ export default function MotionCreationPage() {
           type="Friends"
           items={friends}
           selectedItems={selectedFriends}
-          setSelectedItems={setSelectedFriends}
+          selectedItemIDs={selectedFriendIDs}
+          setSelectedItems={handleFriends}
           handleClick={handleClick}
         />
       );

@@ -17,6 +17,7 @@ export default function BuildMotionCreationPage(props) {
           type={props.type}
           items={props.items}
           selectedItems={props.selectedItems}
+          selectedItemIDs={props.selectedItemIDs}
           setSelectedItems={(newSelected) =>
             props.setSelectedItems(newSelected)
           }
