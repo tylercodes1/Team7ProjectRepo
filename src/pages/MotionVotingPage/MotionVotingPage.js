@@ -8,22 +8,26 @@ import axios from "axios";
 
 export default function MotionVotingPage() {
     const [restaurants, setRestaurants] = useState([]);
-    const isOwner = false;
-
-    useEffect(async () => {
-        const result = await getMotionChoices();
-        setRestaurants(result);
-        console.log(result);
+    const isOwner = true;
+    const userId = localStorage.getItem("id");
+    console.log("userID: ",localStorage.getItem("id"))
+    const motionOwnerId = restaurants.map(a => a.motion.owner_id.id)[0];
+    console.log("motionOwnerId: ", motionOwnerId);
+    useEffect(async (e) => {
+        
+        const result = await axios.get("http://localhost:5000/motionchoices", { 
+            headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+                setRestaurants(res.data);
+                console.log(res.data)
+            });
     }, []);
+    const motionId = restaurants.map(a =>a.motion.id);
 
-    // useEffect(async () => {
-        const result = axios.get("localhost:5000/choices").then((response) => {
-          console.log("getAllChoices: ", response.data);
-        })
-        // setRestaurants(result);
-        // console.log(result);
-    //   });
-    return (isOwner ?  
-        (<BuildOwnerVotePage type="Vote" items = {restaurants} />) :
-        (<BuildVotePage type="Vote" items = {restaurants} />));
+    console.log(motionId[0]);
+    console.log(restaurants);
+          
+        
+    return ( userId != motionOwnerId ?  
+        (<BuildOwnerVotePage type="Vote" items = {restaurants} motionID = {motionId[0]} />) :
+        (<BuildVotePage type="Vote" items = {restaurants}  motionID = {motionId[0]}/>));
 }

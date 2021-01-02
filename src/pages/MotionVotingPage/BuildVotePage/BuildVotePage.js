@@ -4,28 +4,33 @@ import {getChoices} from "../../../api/api";
 import BuildSuggestionPage from "../../MotionVotingPage/BuildSuggestionPage/BuildSuggestionPage"
 import BuildMotionWinnerPage from "../BuildMotionWinnerPage/BuildMotionWinnerPage"
 import BuildFinalVotePage from "../BuildFinalVotePage/BuildFinalVotePage";
-
+import axios from "axios";
 export default function BuildVotePage(props) {
-  
+  console.log ("motionID: ", props.motionID)
   const [suggestion, setSuggestion] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState([]);
 
   const [action, setAction] = useState(1);
-
-  useEffect(async () => {
-    const result = await getChoices();
-    setSuggestion(result);
-    console.log(result);
+  useEffect(async (e) => {
+        
+  const result = await axios.get("http://localhost:5000/choices", { 
+      headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+        setSuggestion(res.data);
+      });
   }, []);
+  console.log(suggestion);
+  
   function handleSkip(){
     setAction(action + 2);
   }
   function handleSuggestion(){
-    setAction(action + 1)
+    
+      setAction(action + 1); 
+    
   }
   function handleClick() {
-    if (selectedSuggestion.length == 1){
+    if (selectedRestaurants.length == 1 || selectedSuggestion.length == 1){
       setAction(action + 1); 
     }
           
@@ -57,6 +62,7 @@ export default function BuildVotePage(props) {
                 items={suggestion}
                 selectedItems = {selectedSuggestion}
                 setSelectedItems = {setSelectedSuggestion}
+                motionID = {props.motionID}
                 handleClick={handleClick}
             />
       )
@@ -64,9 +70,11 @@ export default function BuildVotePage(props) {
       return (
           <BuildFinalVotePage 
                 type="Vote-Page"
-                items={suggestion}
-                selectedItems = {selectedSuggestion}
-                setSelectedItems = {setSelectedSuggestion}
+                items={props.items}
+                selectedItems={selectedRestaurants}
+                setSelectedItems={(newSelected) =>
+                setSelectedRestaurants(newSelected)
+              }
                 handleClick={handleClick}
           />
       )

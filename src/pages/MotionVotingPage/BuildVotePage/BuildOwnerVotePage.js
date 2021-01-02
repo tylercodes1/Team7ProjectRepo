@@ -4,28 +4,32 @@ import {getChoices} from "../../../api/api";
 import BuildOwnerSuggestionPage from "../BuildSuggestionPage/BuildOwnerSuggestionPage";
 import BuildMotionWinnerPage from "../BuildMotionWinnerPage/BuildMotionWinnerPage"
 import BuildFinalVotePage from "../BuildFinalVotePage/BuildFinalVotePage";
-
+import axios from "axios";
 
 export default function BuildOwnerVotePage(props) {
-    const [suggestion, setSuggestion] = useState([]);
+    const [ownerSuggestion, setOwnerSuggestion] = useState([]);
     const [selectedRestaurants, setSelectedRestaurants] = useState([]);
-    const [selectedSuggestion, setSelectedSuggestion] = useState([]);
     const [move, setMove] = useState(1);
-    const num = 0;
-    useEffect(async () => {
-      const result = await getChoices();
-      setSuggestion(result);
-      console.log(result);
+    const num = ownerSuggestion.map(a =>a.choice_id.name).length;
+    useEffect(async (e) => {
+      const result = await axios.get("http://localhost:5000/suggestions", { 
+        headers: {"Authorization" : `Bearer ${localStorage.getItem("token")}`}}).then(res => {
+          setOwnerSuggestion(res.data);
+        });
     }, []);
     
     function handleUserSuggestion(){
         setMove(move + 1)
     }
     function handleClick() {
-      if (selectedSuggestion.length == 1){
+      
         setMove(move + 1); 
-      }
+      
             
+    }
+    function triggerDelete (index) {
+      setOwnerSuggestion(ownerSuggestion.filter((l)=> l !== ownerSuggestion[index]))
+      
     }
     switch (move) {
       case 1:
@@ -50,17 +54,21 @@ export default function BuildOwnerVotePage(props) {
       case 2:
         return (
             <BuildOwnerSuggestionPage
-                type="Suggestion"
+                type="Owner_Suggestion"
+                items = {ownerSuggestion}
                 handleUserSuggestion={handleUserSuggestion}
+                triggerDelete={triggerDelete}
             />
         )
       case 3: 
         return (
           <BuildFinalVotePage 
-                type="Restaurants"
-                items={suggestion}
-                selectedItems = {selectedSuggestion}
-                setSelectedItems = {setSelectedSuggestion}
+                type="Vote-Page"
+                items={props.items}
+                selectedItems={selectedRestaurants}
+                setSelectedItems={(newSelected) =>
+                  setSelectedRestaurants(newSelected)
+                }
                 handleClick={handleClick}
           />
         )

@@ -13,7 +13,7 @@ export const DrawerData = [
     {
         title: 'Login',
         path: '/login',
-        icon: <IoIcons.IoIosLogIn />,
+        icon: <IoIcons.IoIosCloseCircle />,
         cName: 'nav-text'
     },
     {
