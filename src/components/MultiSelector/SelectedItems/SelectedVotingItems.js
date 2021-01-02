@@ -5,8 +5,6 @@ import { AiOutlineClose } from "react-icons/ai"
 import { GoCheck } from "react-icons/go";
 import { IconContext } from "react-icons";
 export default function SelectedVotingItems(props) {
-  console.log(props.type);
-  console.log(props.selectedItems);
   return (
     <div className="selected-items">
       <p>{props.type !== undefined && `Selected ${props.type}`}</p>

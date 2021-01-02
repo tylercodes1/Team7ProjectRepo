@@ -117,14 +117,44 @@ export async function addMotionChoice(motionChoice) {
 }
 
 export async function getChoices() {
-  return db.choices;
+  const resp = await Axios.get('http://localhost:5000/choices' , {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+  return resp.data;
 }
 export async function getMotionChoices() {
   return db.motionChoices;
 }
 
-setTimeout(() => {
-  addMotion({ title: "hello" }).then((m) => {
-    console.log(JSON.stringify(db.motions, null, 2));
-  });
-}, 20000);
+export async function getMotionChoices() {
+  return db.motionChoices;
+}
+
+// setTimeout(() => {
+//   addMotion({ title: "hello" }).then((m) => {
+//     console.log(JSON.stringify(db.motions, null, 2));
+//   });
+// }, 20000);
+
+// console.log('running axiossssssssss')
+// Axios.get('http://localhost:5000/hello' , {
+//   headers: {
+//     "Authorization": `Bearer ${localStorage.getItem("token")}`
+//   }
+// }).then(r => {
+//   console.log(r.data);
+// })
+
+
+
+// setInterval(() => {
+//   Axios.get('http://localhost:5000/choices' , {
+//   headers: {
+//     "Authorization": `Bearer ${localStorage.getItem("token")}`
+//   }
+// }).then(r => {
+//   console.log(r.data);
+// })
+// }, 5000)
