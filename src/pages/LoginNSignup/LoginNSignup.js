@@ -8,6 +8,7 @@ import { login } from "../../store/actions/actionTypes";
 function LoginNSignup() {
   const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
+  const 
 
   const [formData, setFormData] = useState({
     username: "",
@@ -51,6 +52,7 @@ function LoginNSignup() {
         localStorage.setItem("name", response.data.name);
         localStorage.setItem("id", response.data.id);
         localStorage.setItem("admin", response.data.admin);
+
         //Need to store the user name and id as well
       })
       .catch((error) => console.log(error));
@@ -79,12 +81,15 @@ function LoginNSignup() {
     }
   };
 
-  return (
-    <div>
-      {isLogged ? (
-        <div className="login-page">
-          <h1>Login</h1>
-          <h1 onClick={() => dispatch(login())}>Sign-up</h1>
+  if (isLogged) {
+    return (
+      <div className="login-page">
+        <div className="login-form">
+          <div className="login-toggle-buttons">
+            <h1>Login</h1>
+            <h1 onClick={() => dispatch(login())}>Sign-Up</h1>
+          </div>
+
           <form onSubmit={doLogin}>
             <input
               type="text"
@@ -103,10 +108,16 @@ function LoginNSignup() {
             <input type="submit" value="Login" />
           </form>
         </div>
-      ) : (
-        <div className="newuser-page">
-          <h1 onClick={() => dispatch(login())}>Login</h1>
-          <h1> Sign-Up</h1>
+      </div>
+    );
+  } else {
+    return (
+      <div className="newuser-page">
+        <div className="login-form">
+          <div className="login-toggle-buttons">
+            <h1 onClick={() => dispatch(login())}>Login</h1>
+            <h1>Sign-Up</h1>
+          </div>
           <form onSubmit={handleSignUp}>
             <input
               type="text"
@@ -132,8 +143,8 @@ function LoginNSignup() {
             <input type="submit" value="Create User" />
           </form>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 }
 export default LoginNSignup;
