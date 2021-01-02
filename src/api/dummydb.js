@@ -101,6 +101,28 @@ export default {
       owner_id: 6,
     },
   ],
+  motionChoices: [
+    {
+      id: 9,
+      name: "Panda Express",
+      owner_id: 2,
+    },
+    {
+      id: 10,
+      name: "Dairy Queen",
+      owner_id: 2,
+    },
+    {
+      id: 11,
+      name: "Olive Garden",
+      owner_id: 3,
+    },
+    {
+      id: 13,
+      name: "Chic-fil-a",
+      owner_id: 6,
+    },
+  ],
 
   motion_user: [
     {

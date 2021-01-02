@@ -27,15 +27,62 @@ export default function MotionCreationPage() {
     }
   }
 
-  useEffect(async () => {
-    const restaurantsResult = await getChoices();
-    const friendsResult = await getUsers();
-    // console.log(await addMotion({ title: "motion3" }));
-    console.log(restaurantsResult);
-    console.log(friendsResult);
-    setRestaurants(restaurantsResult);
-    setFriends(friendsResult);
+  useEffect(() => {
+    let mounted = true;
+
+    const poll = async() => {
+      if (!mounted) {
+        return;
+      }
+
+      console.log('polling');
+      
+      const restaurantsResult = await getChoices();
+      const friendsResult = await getUsers();
+      // console.log(await addMotion({ title: "motion3" }));
+      //console.log(restaurantsResult);
+      //console.log(friendsResult);
+      setRestaurants(restaurantsResult);
+      setFriends(friendsResult);
+
+      // setSelectedRestaurants
+
+      // const selectedRests = [];
+
+      // //console.log(selectedRestaurants);
+
+      // selectedRestaurants.forEach(r => {
+      //   const loadedIDs = restaurantsResult.map(rr => r.id);
+      //   console.log(loadedIDs);
+      //   console.log(r.id);
+
+      //   if (loadedIDs.indexOf(r.id) !== -1) {
+      //     selectedRests.push(r);
+      //   }
+      // });
+
+      setSelectedRestaurants(selectedRestaurants);
+
+      setTimeout(() => poll(), 2500);
+    };
+
+    const onMount = async() => {
+      console.log('mounting');
+      poll();
+    };
+
+    const onUnmount = async () => {
+      console.log('running unmounted');
+      mounted = false;
+    };
+
+    onMount();
+
+    return onUnmount;
   }, []);
+
+  //console.log(restaurants);
+  //console.log(selectedRestaurants);
 
   switch (action) {
     case 1:

@@ -5,7 +5,7 @@ import MultiSelector from "./../../../components/MultiSelector/MultiSelector.js"
 import SelectedItems from "./../../../components/MultiSelector/SelectedItems/SelectedItems.js";
 
 export default function BuildMotionCreationPage(props) {
-  console.log(props);
+  //console.log(props.items.map(i => i.name).join('\n'));
   return (
     <div className="motion-creation-page">
       {props.type === "Restaurants" && (
