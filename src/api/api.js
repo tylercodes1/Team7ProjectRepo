@@ -77,12 +77,22 @@ export async function addUser(userDTO) {
 // });
 
 //Motions:
-export async function getMotions() {
-  if (!currentUser) {
-    return [];
-  }
-  return db.motions.filter((m) => m.owner_id === currentUser.id);
+// export async function getMotions() {
+//   if (!currentUser) {
+//     return [];
+//   }
+//   return db.motions.filter((m) => m.owner_id === currentUser.id);
+// }
+
+export async function getMotions(){
+  const resp = await Axios.get('http://localhost:5000/motions' , {
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+return resp.data;
 }
+//console.log(JSON.stringify(getMotions()));
 
 export async function addMotion(motionDTO) {
   // if (!currentUser) {

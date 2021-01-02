@@ -1,34 +1,67 @@
-// import React from "react";
-// import {useHistory} from "react-router-dom";
-// import "./HomePage.css";
-// import HomePageWelcome from "./../../components/HomePageWelcome/HomePageWelcome";
-// export default class HomePage extends React.Component {
-
-//  //history = useHistory();
-
-//   render() {
-//     return (
-//       <>
-//         <div className="home-page">
-//           <HomePageWelcome />
-//         </div>
-//       </>
-//     );
-//   }
-// }
-
-import React from 'react'
+import React from "react";
+import {getMotions} from "../../api/api"
 import "./HomePage.css";
 import HomePageWelcome from "./../../components/HomePageWelcome/HomePageWelcome";
+export default class HomePage extends React.Component {
 
-function HomePage() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      motion: []
+    }
+  }
 
+  componentDidMount() {
+    this.poll();
+  }
 
-  return (
-    <div className="home-page">
-      <HomePageWelcome />
-    </div>
-  )
+  poll = async () => {
+    this.setState({
+      motion: await getMotions()
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <div className="home-page">
+          <HomePageWelcome />
+          {
+            this.state.motion.map((i, t) => {
+              return (
+                <p key={t}>{i.title}</p>
+              );
+            })
+          }
+        </div>
+      </>
+    );
+  }
 }
 
-export default HomePage
+// import React, { useState } from 'react'
+// import "./HomePage.css";
+// import HomePageWelcome from "./../../components/HomePageWelcome/HomePageWelcome";
+// import Axios from "axios";
+// import { getMotions } from "../../api/api";
+
+// function HomePage() {
+
+// const [motionData, setMotionData] =useState([""]);
+
+// useEffect(() => {
+//   getAllMotions();
+// }, []);
+
+// const getAllMotions = async () => {
+//   const resp = await getMotions();
+// }
+
+//   return (
+//     <div className="home-page">
+//       <HomePageWelcome />
+//     </div>
+//   )
+// }
+
+// export default HomePage
