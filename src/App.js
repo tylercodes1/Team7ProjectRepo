@@ -24,12 +24,10 @@ function App() {
         <NavBar onNavBarClick={handleClick}></NavBar>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/motion-creation" component={MotionCreationPage} />
-
-          <Route exact path="/motion-vote" component={MotionVotingPage} />
-
           <Route exact path="/login" component={LoginNSignup} />
           <Route exact path="/motion" component={MotionPage} />
+          <Route exact path="/motion-creation" component={MotionCreationPage} />
+          <Route exact path="/motion-vote" component={MotionVotingPage} />
           <Route exact path="/reduxTest" component={TestRedux} />
 
           <Route path="/" render={() => <div>404 NOT FOUND :)</div>} />
