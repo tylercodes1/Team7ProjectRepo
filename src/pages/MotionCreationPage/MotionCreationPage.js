@@ -11,7 +11,9 @@ import { addMotion, getChoices, getUsers } from "../../api/api";
 
 export default function MotionCreationPage() {
   const [restaurants, setRestaurants] = useState([]);
+  const [selectedRestaurantIDs, setSelectedRestaurantIDs] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [selectedFriendIDs, setSelectedFriendIDs] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [action, setAction] = useState(1);
@@ -27,15 +29,67 @@ export default function MotionCreationPage() {
     }
   }
 
+  function handleRestaurants(selectedChoices) {
+    setSelectedRestaurants(selectedChoices);
+    setSelectedRestaurantIDs(selectedChoices.map((el) => el.id));
+  }
+
+  function handleFriends(selectedChoices) {
+    setSelectedFriends(selectedChoices);
+    setSelectedFriendIDs(selectedChoices.map((el) => el.id));
+  }
+
   useEffect(async () => {
-    const restaurantsResult = await getChoices();
-    const friendsResult = await getUsers();
-    // console.log(await addMotion({ title: "motion3" }));
-    console.log(restaurantsResult);
-    console.log(friendsResult);
-    setRestaurants(restaurantsResult);
-    setFriends(friendsResult);
+    let mounted = true;
+
+    const poll = async () => {
+      if (!mounted) {
+        return;
+      }
+
+      console.log("polling");
+
+      const restaurantsResult = await getChoices();
+      const friendsResult = await getUsers();
+      setRestaurants(restaurantsResult);
+      setFriends(friendsResult);
+
+      // setSelectedRestaurants
+
+      // const selectedRests = [];
+
+      // //console.log(selectedRestaurants);
+
+      // selectedRestaurants.forEach(r => {
+      //   const loadedIDs = restaurantsResult.map(rr => r.id);
+      //   console.log(loadedIDs);
+      //   console.log(r.id);
+
+      //   if (loadedIDs.indexOf(r.id) !== -1) {
+      //     selectedRests.push(r);
+      //   }
+      // });
+
+      setTimeout(() => poll(), 2500);
+    };
+
+    const onMount = async () => {
+      console.log("mounting");
+      poll();
+    };
+
+    const onUnmount = async () => {
+      console.log("running unmounted");
+      mounted = false;
+    };
+
+    onMount();
+
+    return onUnmount;
   }, []);
+
+  //console.log(restaurants);
+  //console.log(selectedRestaurants);
 
   switch (action) {
     case 1:
@@ -45,7 +99,8 @@ export default function MotionCreationPage() {
           type="Restaurants"
           items={restaurants}
           selectedItems={selectedRestaurants}
-          setSelectedItems={setSelectedRestaurants}
+          selectedItemIDs={selectedRestaurantIDs}
+          setSelectedItems={handleRestaurants}
           handleClick={handleClick}
         />
       );
@@ -57,7 +112,8 @@ export default function MotionCreationPage() {
           type="Friends"
           items={friends}
           selectedItems={selectedFriends}
-          setSelectedItems={setSelectedFriends}
+          selectedItemIDs={selectedFriendIDs}
+          setSelectedItems={handleFriends}
           handleClick={handleClick}
         />
       );
