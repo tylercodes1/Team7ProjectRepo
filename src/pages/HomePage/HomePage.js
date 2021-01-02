@@ -29,7 +29,7 @@ export default class HomePage extends React.Component {
           {
             this.state.motion.map((i, t) => {
               return (
-                <p key={t}>{i.title}</p>
+                <p key={t}>Motion-title: {i.title} <br></br>Motion-owner: {i.owner_id.name} </p>
               );
             })
           }
