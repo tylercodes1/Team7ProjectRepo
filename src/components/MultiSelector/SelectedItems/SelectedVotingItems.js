@@ -4,6 +4,7 @@ import * as GiIcons from 'react-icons/gi';
 import * as IoIcons from 'react-icons/io';
 import axios from "axios";
 export default function SelectedVotingItems(props) {
+
   console.log(props.type);
   console.log(props.selectedItems);
   const [array, setArray] = useState()
@@ -20,6 +21,7 @@ export default function SelectedVotingItems(props) {
   // }
   
   
+
   return (
     <div className="selected-items">
       <p>{props.type !== undefined && `Selected ${props.type}`}</p>

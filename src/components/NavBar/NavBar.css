@@ -89,3 +89,11 @@ h3 {
 span {
   margin-left: 16px;
 }
+
+.logout a {
+  color: darkorange;
+}
+
+.logout a:hover {
+  color: white;
+}
