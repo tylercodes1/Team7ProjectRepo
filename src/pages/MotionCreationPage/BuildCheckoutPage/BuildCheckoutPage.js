@@ -9,17 +9,25 @@ import { Redirect } from "react-router-dom";
 
 export default function BuildCheckoutPage(props) {
   const [redirect, setRedirect] = useState(false);
+  const [title, setTitle] = useState("");
 
   if (redirect) {
     return <Redirect to="/" />;
   }
 
-  console.log(props);
   return (
     <div className="checkout-page">
       <h1>Does this look right?</h1>
       <div className="view-filler">
         <div className="summary-window">
+          <input
+            className="title-input"
+            type="text"
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            placeholder={`${localStorage.getItem("name")}'s Motion`}
+          />
           <SelectedItems
             type="Restaurant"
             selectedItems={props.selectedRestaurants}
@@ -32,8 +40,13 @@ export default function BuildCheckoutPage(props) {
             onClick={async () => {
               const result = await CustomDialog(
                 <CustomDialogContent
-                  selectedRestaurants={props.selectedRestaurants}
+                  selectedChoices={props.selectedRestaurants}
                   selectedFriends={props.selectedFriends}
+                  title={
+                    title.length === 0
+                      ? `${localStorage.getItem("name")}'s Motion`
+                      : title
+                  }
                 />,
                 {
                   title: "Custom Dialog",
@@ -59,7 +72,6 @@ export default function BuildCheckoutPage(props) {
 }
 
 function buildFriend(selectedFriend, key) {
-  console.log(selectedFriend);
   return (
     <div className="summary-friend-item" key={key}>
       <div className="summary-profile-icon">

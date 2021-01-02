@@ -11,3 +11,9 @@
   overflow-y: auto;
   grid-template-columns: 1fr 1fr;
 }
+
+.title-input {
+  height: 30px;
+  outline: none;
+  margin-bottom: 10px;
+}

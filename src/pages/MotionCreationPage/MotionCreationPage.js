@@ -60,8 +60,8 @@ export default function MotionCreationPage() {
 
       // //console.log(selectedRestaurants);
 
-      // selectedRestaurants.forEach(r => {
-      //   const loadedIDs = restaurantsResult.map(rr => r.id);
+      // selectedRestaurants.forEach((r) => {
+      //   const loadedIDs = restaurantsResult.map((rr) => r.id);
       //   console.log(loadedIDs);
       //   console.log(r.id);
 
@@ -70,7 +70,10 @@ export default function MotionCreationPage() {
       //   }
       // });
 
-      setTimeout(() => poll(), 2500);
+      if (action !== 3) {
+        console.log(action);
+        setTimeout(() => poll(), 2500);
+      }
     };
 
     const onMount = async () => {
