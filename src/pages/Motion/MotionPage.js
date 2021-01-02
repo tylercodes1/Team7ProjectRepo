@@ -9,14 +9,15 @@ export default function MotionPage() {
 // import React, { Component } from 'react'
 // import "./MotionPage.css";
 // import Axios from "axios";
-// import { getChoices } from '../../api/api';
+// import { getChoices, getMotions } from '../../api/api';
 
 // export default class MotionPage extends Component {
 
 //   constructor(props) {
 //     super(props);
 //     this.state = {
-//       choice: []
+//      // choice: [],
+//       motion: []
 //     }
 //   }
 
@@ -26,10 +27,11 @@ export default function MotionPage() {
 
 //   poll = async () => {
 //     this.setState({
-//       choice: await getChoices()
+//      // choice: await getChoices()
+//      motion: await getMotions()
 //     });
     
-//     setTimeout(() => this.poll(), 5000);
+//     //setTimeout(() => this.poll(), 5000);
 
 //   //  console.log(this.state);
 //   }
@@ -39,15 +41,16 @@ export default function MotionPage() {
 // // }
 
 // render() {
-//   console.log(this.state.choice);
+//  // console.log(this.state.choice);
+//  console.log(this.state.motion);
 //   return (
 //     <div>
 
 //       <p>123</p>
 //       {
-//         this.state.choice.map((i, t) => {
+//         this.state.motion.map((i, t) => {
 //           return (
-//             <p key={t}>{i.name}</p>
+//             <p key={t}>{i.title}</p>
 //           );
 //         })
 //       }
