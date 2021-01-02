@@ -117,15 +117,12 @@ export async function addMotionChoice(motionChoice) {
 }
 
 export async function getChoices() {
-  const resp = await Axios.get('http://localhost:5000/choices' , {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    });
+  const resp = await Axios.get("http://localhost:5000/choices", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
   return resp.data;
-}
-export async function getMotionChoices() {
-  return db.motionChoices;
 }
 
 export async function getMotionChoices() {
@@ -146,8 +143,6 @@ export async function getMotionChoices() {
 // }).then(r => {
 //   console.log(r.data);
 // })
-
-
 
 // setInterval(() => {
 //   Axios.get('http://localhost:5000/choices' , {
