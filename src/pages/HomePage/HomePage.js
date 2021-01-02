@@ -36,6 +36,8 @@ export default class HomePage extends React.Component {
         </div>
       </>
     );
+        }
+      }        
 
 // import { Redirect } from "react-router-dom";
 // export default function HomePage() {
@@ -78,4 +80,3 @@ export default class HomePage extends React.Component {
 //     </div>
 //   )
 // }
-export default HomePage
