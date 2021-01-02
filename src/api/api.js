@@ -124,6 +124,9 @@ export async function getChoices() {
     });
   return resp.data;
 }
+export async function getMotionChoices() {
+  return db.motionChoices;
+}
 
 export async function getMotionChoices() {
   return db.motionChoices;
