@@ -6,3 +6,18 @@
   width: 100%;
 }
 /* position property cannot be fixed, relative, or absolute because it caused NavBar items unclickable */
+
+.home-page-motions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 5px;
+  column-gap: 5px;
+}
+
+.home-motion-tile {
+  background-color: lightgrey;
+  height: 150px;
+  width: 250px;
+
+  /* color: grey; */
+}

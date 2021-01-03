@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+} from "react-router-dom";
 
 import TestRedux from "./pages/TestRedux";
 import LoginNSignup from "./pages/LoginNSignup/LoginNSignup";
@@ -12,14 +17,13 @@ import MotionVotingPage from "./pages/MotionVotingPage/MotionVotingPage";
 
 import MotionPage from "./pages/Motion/MotionPage";
 
-
 function App() {
   const [background, setBackground] = useState(false);
   function handleClick() {
     setBackground(!background);
   }
   return (
-    <div className={background? 'showcase' : 'showcase Shrink'}>
+    <div className={background ? "showcase" : "showcase Shrink"}>
       <Router>
         <NavBar onNavBarClick={handleClick}></NavBar>
         <Switch>
@@ -34,7 +38,7 @@ function App() {
         </Switch>
       </Router>
     </div>
-  )
+  );
 }
 
 export default App;
