@@ -6,6 +6,13 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 
 export default function MakeSuggestionsDialog(props) {
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItemIDs, setSelectedItemIDs] = useState([]);
+
+  function handleVote(selectedItems) {
+    setSelectedItems(selectedItems);
+    setSelectedItemIDs(selectedItems.map((el) => el.id));
+  }
+
   console.log(props);
   console.log(selectedItems.length === 1 ? selectedItems[0].id : "none");
   const choiceId = 19;
@@ -16,7 +23,8 @@ export default function MakeSuggestionsDialog(props) {
           type={props.type}
           items={props.choices}
           selectedItems={selectedItems}
-          setSelectedItems={(newSelected) => setSelectedItems(newSelected)}
+          selectedItemIDs={selectedItemIDs}
+          setSelectedItems={(newSelected) => handleVote(newSelected)}
           limit={1}
         />
         <button

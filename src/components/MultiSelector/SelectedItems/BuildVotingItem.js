@@ -14,7 +14,7 @@ export default function BuildVotingItem(props) {
     <div className="build-voting-item" key={props.index}>
       <div className="selected-item">{props.el.choice_id.name}</div>
       {sending === false && success === false && fail === false && (
-        <div className="button-pairing">
+        <div className="button-pairing" key={props.index}>
           <button
             className="check-button"
             onClick={async () => {
@@ -56,6 +56,7 @@ export default function BuildVotingItem(props) {
           </button>
           <button
             className="close-button"
+            key={props.index}
             onClick={async () => {
               setSending(true);
               await axios
