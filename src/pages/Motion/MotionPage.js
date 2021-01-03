@@ -3,7 +3,14 @@ import "./MotionPage.css";
 
 export default function MotionPage() {
 
-  return <div className="motion-page">hello</div>;
+  return (
+    <>
+      <div className="motion-page"> hello</div>
+      </>
+
+  )
+
+
 }
 
 // import React, { Component } from 'react'
@@ -30,7 +37,7 @@ export default function MotionPage() {
 //      // choice: await getChoices()
 //      motion: await getMotions()
 //     });
-    
+
 //     //setTimeout(() => this.poll(), 5000);
 
 //   //  console.log(this.state);

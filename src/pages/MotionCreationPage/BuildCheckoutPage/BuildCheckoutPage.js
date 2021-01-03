@@ -6,14 +6,15 @@ import { GiKnifeFork } from "react-icons/gi";
 import { CustomDialog } from "react-st-modal";
 import CustomDialogContent from "./CustomDialogContent";
 import { Redirect } from "react-router-dom";
+import MotionCreationPage, {poll} from "../MotionCreationPage"
 
 export default function BuildCheckoutPage(props) {
   const [redirect, setRedirect] = useState(false);
 
   if (redirect) {
     return <Redirect to="/" />;
-  }
-
+  };
+ 
   console.log(props);
   return (
     <div className="checkout-page">
@@ -45,6 +46,7 @@ export default function BuildCheckoutPage(props) {
                 alert("Cannot connect to servers");
               } else {
                 setRedirect(true);
+
               }
             }}
           >
