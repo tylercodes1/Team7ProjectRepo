@@ -83,3 +83,15 @@
   height: calc(100% - 60px);
   width: 100%;
 }
+
+.submit-vote-button {
+  display: flex;
+  background-color: #3f9db5;
+  height: 50px;
+  width: 50px;
+  border: none;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

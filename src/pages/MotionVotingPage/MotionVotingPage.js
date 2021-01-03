@@ -15,7 +15,7 @@ import loading from "react-useanimations/lib/loading";
  */
 export default function MotionVotingPage(props) {
   const [motionId, setMotionId] = useState();
-  const [restaurants, setRestaurants] = useState([]);
+  const [motionChoices, setMotionChoices] = useState([]);
   const userId = localStorage.getItem("id");
   const [motionOwnerId, setMotionOwnerId] = useState(-1);
   const [complete, setComplete] = useState(false);
@@ -24,7 +24,7 @@ export default function MotionVotingPage(props) {
     if (props.location.state === undefined || props.location.state === null) {
       setRedirect(true);
     } else {
-      setMotionId(props.location);
+      setMotionId(props.location.state.motionId);
       const result = await axios
         .get(
           `http://localhost:5000/motionchoices/${props.location.state.motionId}`,
@@ -35,7 +35,7 @@ export default function MotionVotingPage(props) {
           }
         )
         .then(async (res) => {
-          setRestaurants(res.data);
+          setMotionChoices(res.data);
           console.log(res.data);
           const resp = await axios.get(
             `http://localhost:5000/motions/${props.location.state.motionId}`,
@@ -58,11 +58,7 @@ export default function MotionVotingPage(props) {
   if (redirect) {
     return <Redirect to="/" />;
   }
-  //   const motionId = restaurants.map((a) => a.motion.id);
-  console.log(restaurants);
-  console.log(motionOwnerId);
-  console.log(setMotionOwnerId);
-
+  //   const motionId = motionChoices.map((a) => a.motion.id);
   // TODO add condition back
   //   userId != motionOwnerId ?
   switch (complete) {
@@ -70,11 +66,15 @@ export default function MotionVotingPage(props) {
       return true ? (
         <BuildOwnerVotePage
           type="Vote"
-          items={restaurants}
+          motionChoices={motionChoices}
           motionID={motionId}
         />
       ) : (
-        <BuildVotePage type="Vote" items={restaurants} motionID={motionId} />
+        <BuildVotePage
+          type="Vote"
+          motionChoices={motionChoices}
+          motionID={motionId}
+        />
       );
     case false:
       return (
