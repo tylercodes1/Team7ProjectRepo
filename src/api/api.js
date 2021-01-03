@@ -27,7 +27,12 @@ export async function Login(username, password) {
 }
 
 export async function getUsers() {
-  return db.users;
+  const resp = await Axios.get("http://localhost:5000/users", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  return resp.data;
 }
 
 export async function getUserByName(name) {
@@ -84,46 +89,61 @@ export async function addUser(userDTO) {
 //   return db.motions.filter((m) => m.owner_id === currentUser.id);
 // }
 
-export async function getMotions(){
-  const resp = await Axios.get('http://localhost:5000/motions' , {
+export async function getMotions() {
+  const resp = await Axios.get("http://localhost:5000/motions", {
     headers: {
-      "Authorization": `Bearer ${localStorage.getItem("token")}`
-    }
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
   });
-return resp.data;
+  return resp.data;
 }
 //console.log(JSON.stringify(getMotions()));
 
-export async function addMotion(motionDTO) {
-  // if (!currentUser) {
-  //   return;
-  // }
-  const motionToAdd = {
-    ...motionDTO,
-    id: ++db.lastMotionID,
-    owner_id: currentUser.id,
-  };
-  db.motions.push(motionToAdd);
-  return motionToAdd;
+export async function addMotion(motion) {
+  const resp = await Axios.post(
+    "http://localhost:5000/motions",
+    {
+      title: motion.title,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+  return resp.data;
 }
 
-export async function addMotionUser(motionUser) {
-  const motionUserToAdd = {
-    ...motionUser,
-    motion_user_id: ++db.lastMotionID,
-    vote_id: -1,
-  };
-  db.motion_user.push(motionUserToAdd);
-  return motionUserToAdd;
+export async function addMotionUser(motion) {
+  const resp = await Axios.post(
+    "http://localhost:5000/motionuser",
+    {
+      motionId: motion.id,
+      userId: motion.userId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+  return resp.data;
 }
 
-export async function addMotionChoice(motionChoice) {
-  const motionChoiceToAdd = {
-    ...motionChoice,
-    motion_choice_id: ++db.lastMotionChoiceID,
-  };
-  db.motion_user.push(motionChoiceToAdd);
-  return motionChoiceToAdd;
+export async function addMotionChoice(motion) {
+  const resp = await Axios.post(
+    "http://localhost:5000/motionchoices",
+    {
+      motionId: motion.id,
+      choiceId: motion.choiceId,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
+  return resp.data;
 }
 
 export async function getChoices() {

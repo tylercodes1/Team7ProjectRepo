@@ -16,100 +16,48 @@ import { IconContext } from "react-icons";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 export default function CustomDialogContent(props) {
-  const [completed, setCompleted] = useState([]);
+  const [completed, setCompleted] = useState(false);
   // TO BE ASYNC
   async function handleApiCall() {
-    let result1 = [];
-    let result2 = [];
-    let result3 = [];
-    let users = [
-      {
-        id: 1,
-        name: "Macy",
-        password: "password1",
-        isAdmin: false,
-      },
-      {
-        id: 2,
-        name: "John Doe",
-        password: "password2",
-        isAdmin: false,
-      },
-      {
-        id: 3,
-        name: "Fella",
-        password: "password3",
-        isAdmin: false,
-      },
-      {
-        id: 4,
-        name: "Tyler",
-        password: "password1",
-        isAdmin: false,
-      },
-    ];
-
-    let choices = [
-      {
-        id: 9,
-        name: "Panda Express",
-        owner_id: 2,
-      },
-      {
-        id: 10,
-        name: "Dairy Queen",
-        owner_id: 2,
-      },
-      {
-        id: 11,
-        name: "Olive Garden",
-        owner_id: 3,
-      },
-      {
-        id: 13,
-        name: "Chic-fil-a",
-        owner_id: 6,
-      },
-    ];
-
-    result1 = await addMotion({ title: "Motion Title" })
+    await addMotion({ title: props.title })
       .then(async (res) => {
         console.log("res2");
-        console.log(res);
-        let resp = [];
-        for (const choice of choices) {
-          // console.log(choice);
+        for (const choice of props.selectedChoices) {
+          console.log(res.id);
+          console.log(choice.id);
           const addedChoice = await addMotionChoice({
-            motion_id: 2,
-            choice_id: 1,
+            id: res.id,
+            choiceId: choice.id,
           });
-          resp.push(addedChoice);
+          console.log(addedChoice);
         }
-        return resp;
+        return res.id;
       })
       .then(async (res) => {
         console.log("res11");
         console.log(res);
-        let resp = [];
-        for (const user of users) {
-          // console.log(user);
+        const addMe = await addMotionUser({
+          id: res,
+          userId: localStorage.getItem("id"),
+        });
+        for (const user of props.selectedFriends) {
           const addedUser = await addMotionUser({
-            motion_id: res.id,
-            user_id: user.id,
+            id: res,
+            userId: user.id,
           });
-          resp.push(addedUser);
+          console.log(addedUser);
         }
 
-        return resp;
+        // return resp;
       })
       .then((res) => {
         console.log("res3");
         console.log(res);
         setCompleted(true);
-      })
-      .catch((err) => {
-        alert(err);
       });
+    // .catch((err) => {
+    //   alert(err);
+    // });
   }
 
   useEffect(() => {
