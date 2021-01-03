@@ -1,82 +1,62 @@
-import React from "react";
-import {getMotions} from "../../api/api"
+import React, { useState, useEffect } from "react";
+import { getMotions } from "../../api/api";
 import "./HomePage.css";
 import HomePageWelcome from "./../../components/HomePageWelcome/HomePageWelcome";
-export default class HomePage extends React.Component {
+import HomePageMotions from "./HomePageMotions";
+import { Redirect } from "react-router-dom";
+import UseAnimations from "react-useanimations";
+import loading from "react-useanimations/lib/loading";
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      motion: []
-    }
-  }
+export default function HomePage() {
+  const [motions, setMotion] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const [motionId, setMotionId] = useState(-1);
+  const [complete, setComplete] = useState(false);
 
-  componentDidMount() {
-    this.poll();
-  }
+  useEffect(async () => {
+    await getMotions().then((resp) => setMotion(resp));
+    setComplete(true);
+  }, []);
 
-  poll = async () => {
-    this.setState({
-      motion: await getMotions()
-    });
-  }
-
-  render() {
+  if (redirect) {
+    console.log(motionId);
     return (
-      <>
-        <div className="home-page">
-          <HomePageWelcome />
-          {
-            this.state.motion.map((i, t) => {
-              return (
-                <p key={t}>Motion-title: {i.title} <br></br>Motion-owner: {i.owner_id.name} </p>
-              );
-            })
-          }
-        </div>
-      </>
+      <Redirect
+        to={{
+          pathname: "/motion-vote",
+          state: {
+            motionId: motionId,
+          },
+        }}
+      />
     );
-        }
-      }        
+  }
 
-// import { Redirect } from "react-router-dom";
-// export default function HomePage() {
-//   console.log(localStorage.getItem("token"));
-//   if (localStorage.getItem("token") === null) {
-//     return <Redirect to="/login" />;
-// >>>>>>> main
-//   }
+  function handleClick(motionId) {
+    setMotionId(motionId);
+    setRedirect(true);
+  }
 
-//   return (
-//     <>
-//       <div className="home-page">
-//         <HomePageWelcome></HomePageWelcome>
-//       </div>
-//     </>
-//   );
-// }
-
-// import React, { useState } from 'react'
-// import "./HomePage.css";
-// import HomePageWelcome from "./../../components/HomePageWelcome/HomePageWelcome";
-// import Axios from "axios";
-// import { getMotions } from "../../api/api";
-
-// function HomePage() {
-
-// const [motionData, setMotionData] =useState([""]);
-
-// useEffect(() => {
-//   getAllMotions();
-// }, []);
-
-// const getAllMotions = async () => {
-//   const resp = await getMotions();
-// }
-
-//   return (
-//     <div className="home-page">
-//       <HomePageWelcome />
-//     </div>
-//   )
-// }
+  switch (complete) {
+    case true:
+      return (
+        <>
+          <div className="home-page">
+            {motions.length === 0 && <HomePageWelcome />}
+            {motions.length !== 0 && (
+              <HomePageMotions
+                motions={motions}
+                handleClick={(motionId) => handleClick(motionId)}
+              />
+            )}
+          </div>
+        </>
+      );
+    case false:
+      return (
+        <div className="home-page">
+          <UseAnimations animation={loading} size={70} />
+        </div>
+      );
+  }
+}
