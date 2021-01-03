@@ -1,5 +1,5 @@
 import db from "./dummydb";
-import Axios from "axios";
+import Axios, { axios } from "axios";
 
 let currentUser = {
   id: 4,

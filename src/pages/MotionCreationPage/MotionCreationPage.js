@@ -8,6 +8,7 @@ import { CustomDialog, useDialog } from "react-st-modal";
 import BuildMotionCreationPage from "./BuildMotionCreationPage/BuildMotionCreationPage";
 import BuildCheckoutPage from "./BuildCheckoutPage/BuildCheckoutPage";
 import { addMotion, getChoices, getUsers } from "../../api/api";
+import Axios, { axios } from "axios";
 
 export default function MotionCreationPage() {
   const [restaurants, setRestaurants] = useState([]);
@@ -18,6 +19,8 @@ export default function MotionCreationPage() {
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [action, setAction] = useState(1);
   const [open, setOpen] = useState(false);
+  const CancelToken = Axios.CancelToken;
+  const source = CancelToken.source();
 
   function handleClick(type, selectedItems) {
     if (type === "Restaurants") {
@@ -41,7 +44,6 @@ export default function MotionCreationPage() {
 
   useEffect(async () => {
     let mounted = true;
-
     const poll = async () => {
       if (!mounted) {
         return;
@@ -49,30 +51,16 @@ export default function MotionCreationPage() {
 
       console.log("polling");
 
-      const restaurantsResult = await getChoices();
-      const friendsResult = await getUsers();
-      setRestaurants(restaurantsResult);
-      setFriends(friendsResult);
+      if (mounted) {
+        const restaurantsResult = await getChoices();
+        const friendsResult = await getUsers();
+        setRestaurants(restaurantsResult);
+        setFriends(friendsResult);
 
-      // setSelectedRestaurants
-
-      // const selectedRests = [];
-
-      // //console.log(selectedRestaurants);
-
-      // selectedRestaurants.forEach((r) => {
-      //   const loadedIDs = restaurantsResult.map((rr) => r.id);
-      //   console.log(loadedIDs);
-      //   console.log(r.id);
-
-      //   if (loadedIDs.indexOf(r.id) !== -1) {
-      //     selectedRests.push(r);
-      //   }
-      // });
-
-      if (action !== 3) {
-        console.log(action);
-        setTimeout(() => poll(), 2500);
+        if (action !== 3) {
+          console.log(action);
+          setTimeout(() => poll(), 2500);
+        }
       }
     };
 

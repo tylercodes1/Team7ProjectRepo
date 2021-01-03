@@ -14,8 +14,15 @@ export default function HomePage() {
   const [complete, setComplete] = useState(false);
 
   useEffect(async () => {
-    await getMotions().then((resp) => setMotion(resp));
-    setComplete(true);
+    await getMotions()
+      .then((resp) => {
+        setMotion(resp);
+        setComplete(true);
+      })
+      .catch((e) => {
+        setMotion(null);
+        setComplete(true);
+      });
   }, []);
 
   if (redirect) {
@@ -39,6 +46,11 @@ export default function HomePage() {
 
   switch (complete) {
     case true:
+      if (motions === undefined || motions === null) {
+        localStorage.clear();
+        alert("Servers are down");
+        return <Redirect to="login" />;
+      }
       return (
         <>
           <div className="home-page">

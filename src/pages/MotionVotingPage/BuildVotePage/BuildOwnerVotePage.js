@@ -5,6 +5,8 @@ import BuildOwnerSuggestionPage from "../BuildSuggestionPage/BuildOwnerSuggestio
 import BuildMotionWinnerPage from "../BuildMotionWinnerPage/BuildMotionWinnerPage";
 import BuildFinalVotePage from "../BuildFinalVotePage/BuildFinalVotePage";
 import axios from "axios";
+import SuggestionsDialog from "./SuggestionsDialog";
+import { CustomDialog } from "react-st-modal";
 
 export default function BuildOwnerVotePage(props) {
   console.log(props);
@@ -46,11 +48,18 @@ export default function BuildOwnerVotePage(props) {
               setSelectedItems={(newSelected) =>
                 setSelectedRestaurants(newSelected)
               }
+              limit={1}
             />
           </div>
           <button
             className="makeSuggestionBtn"
-            onClick={() => handleUserSuggestion()}
+            onClick={async () => {
+              const result = await CustomDialog(<SuggestionsDialog />, {
+                title: "Custom Dialog",
+                showCloseIcon: true,
+              });
+              console.log(result);
+            }}
           >
             You have {num} suggestions
           </button>
