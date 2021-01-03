@@ -4,8 +4,8 @@ import { GoCheck } from "react-icons/go";
 import { IconContext } from "react-icons";
 
 export default function MultiVotingSelector(props) {
-  console.log(props.selectedItems);
-  console.log(props.items);
+  console.log(props.selectedItems.id);
+  console.log(props.items.id);
 
   return (
     <div className="multi-selector">
@@ -62,9 +62,10 @@ function BuildItem(type, index, item, selectedItems, setSelectedItems) {
       {/* // TODO image + words */}
       {type === "Restaurants" && <div>{item.name}</div>}
       {type === "Friends" && <div>build Persons</div>}
-      {type === "Vote" && <div>{item.name}</div>}
+      {type === "Vote" && <div>{item.choice.name}</div>}
       {type === "Suggestion" && <div>{item.name}</div>}
-      {type === "Vote-Page" && <div>{item.name}</div>}
+      {type === "Owner_Suggestion" && <div>{item.choice_id.name}</div>}
+      {type === "Vote-Page" && <div>{item.choice.name}</div>}
       {/* <RestaurantItem /> <PersonItem />*/}
       {/* <div>{index} Yo MAMA</div> */}
     </div>

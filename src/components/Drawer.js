@@ -4,40 +4,42 @@ import * as IoIcons from "react-icons/io";
 import * as GiIcons from "react-icons/gi";
 
 export const DrawerData = [
-  {
-    title: "Home",
-    path: "/",
-    icon: <AiIcons.AiFillHome />,
-    cName: "nav-text",
-  },
-  //   {
-  //     title: "Login",
-  //     path: "/login",
-  //     icon: <IoIcons.IoIosLogIn />,
-  //     cName: "nav-text",
-  //   },
-  {
-    title: "Motion",
-    path: "/motion",
-    icon: <GiIcons.GiVote />,
-    cName: "nav-text",
-  },
-  {
-    title: "ReduxExample",
-    path: "/reduxTest",
-    icon: <GiIcons.GiTestTubes />,
-    cName: "nav-text",
-  },
-  {
-    title: "MotionCreation",
-    path: "/motion-creation",
-    icon: <AiIcons.AiFillPlusCircle />,
-    cName: "nav-text",
-  },
-  {
-    title: "Logout",
-    path: "/login",
-    icon: <IoIcons.IoIosLogOut />,
-    cName: "nav-text logout",
-  },
-];
+
+    {
+        title: 'Home',
+        path: '/',
+        icon: <AiIcons.AiFillHome />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Login',
+        path: '/login',
+        icon: <IoIcons.IoIosLogIn />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Motion',
+        path: '/motion',
+        icon: <GiIcons.GiPartyFlags />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'ReduxExample',
+        path: '/reduxTest',
+        icon: <GiIcons.GiTestTubes />,
+        cName: 'nav-text'
+    },
+    {
+      title: "MotionCreation",
+      path: "motion-creation",
+      icon: <AiIcons.AiFillPlusCircle />,
+      cName: "nav-text",
+    },
+    {
+      title: "MotionVote",
+      path: "motion-vote",
+      icon: <GiIcons.GiVote />,
+      cName: "nav-text",
+    },
+]
+

@@ -2,22 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./BuildOwnerSuggestionPage.css"
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { getMotionChoices } from "../../../api/api";
 import SelectedVotingItems from "../../../components/MultiSelector/SelectedItems/SelectedVotingItems";
-export default function BuildOwnerSuggestionPage(props) {
-    const [restaurants, setRestaurants] = useState([]);
+import axios from "axios";
 
-    useEffect(async () => {
-        const result = await getMotionChoices();
-        setRestaurants(result);
-        console.log(result);
-    }, []);
+export default function BuildOwnerSuggestionPage(props) {
+    const [suggestion, setSuggestion] = useState([]);
+    console.log(props.items)
+    const suggestionsName = props.items.map(a =>a.choice_id.name);
+    console.log("Owner_Suggestion: ",suggestionsName)
     return (
       <div >
             <div className="Suggestion-window">
               <SelectedVotingItems
                 type="Suggestion"
-                selectedItems={restaurants}
+                selectedItems={props.items}
+                triggerDelete= {props.triggerDelete}
               />
         </div>
         <button
