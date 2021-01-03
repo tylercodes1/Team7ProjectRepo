@@ -4,10 +4,12 @@ import { Login } from "../../api/api";
 import "./LoginNSignup.css";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../store/actions/actionTypes";
+import { Redirect } from "react-router-dom";
 
 function LoginNSignup() {
   const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
+  const [redirect, setRedirect] = useState(false);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -20,9 +22,19 @@ function LoginNSignup() {
     confirmPass: "",
   });
 
+  // Check if logged in, if yes, send to normal page
+  if (localStorage.getItem("token") !== null) {
+    return <Redirect to="" />;
+  }
+  if (redirect) {
+    return <Redirect to="" />;
+  }
   const doLogin = async (e) => {
     e.preventDefault();
-    handleLogin(e);
+    await handleLogin(e);
+    if (localStorage.getItem("token") !== null) {
+      setRedirect(true);
+    }
     try {
       await Login(formData.username, formData.password);
       console.log("clicked");
@@ -38,9 +50,9 @@ function LoginNSignup() {
     });
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    axios
+    await axios
       .post("http://localhost:5000/api/auth/signin", {
         name: formData.username,
         password: formData.password,
@@ -79,12 +91,15 @@ function LoginNSignup() {
     }
   };
 
-  return (
-    <div>
-      {isLogged ? (
-        <div className="login-page">
-          <h1>Login</h1>
-          <h1 onClick={() => dispatch(login())}>Sign-up</h1>
+  if (isLogged) {
+    return (
+      <div className="login-page">
+        <div className="login-form">
+          <div className="login-toggle-buttons">
+            <h1>Login</h1>
+            <h1 onClick={() => dispatch(login())}>Sign-Up</h1>
+          </div>
+
           <form onSubmit={doLogin}>
             <input
               type="text"
@@ -103,10 +118,16 @@ function LoginNSignup() {
             <input type="submit" value="Login" />
           </form>
         </div>
-      ) : (
-        <div className="newuser-page">
-          <h1 onClick={() => dispatch(login())}>Login</h1>
-          <h1> Sign-Up</h1>
+      </div>
+    );
+  } else {
+    return (
+      <div className="newuser-page">
+        <div className="login-form">
+          <div className="login-toggle-buttons">
+            <h1 onClick={() => dispatch(login())}>Login</h1>
+            <h1>Sign-Up</h1>
+          </div>
           <form onSubmit={handleSignUp}>
             <input
               type="text"
@@ -132,8 +153,8 @@ function LoginNSignup() {
             <input type="submit" value="Create User" />
           </form>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 }
 export default LoginNSignup;
