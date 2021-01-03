@@ -19,34 +19,43 @@ export default function MotionVotingPage(props) {
   const userId = localStorage.getItem("id");
   const [motionOwnerId, setMotionOwnerId] = useState(-1);
   const [complete, setComplete] = useState(false);
-
+  const [redirect, setRedirect] = useState(false);
   useEffect(async (e) => {
-    setMotionId(props.location);
-    const result = await axios
-      .get(
-        `http://localhost:5000/motionchoices/${props.location.state.motionId}`,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      )
-      .then(async (res) => {
-        setRestaurants(res.data);
-        console.log(res.data);
-        const resp = await axios.get(
-          `http://localhost:5000/motions/${props.location.state.motionId}`,
+    if (props.location.state === undefined || props.location.state === null) {
+      setRedirect(true);
+    } else {
+      setMotionId(props.location);
+      const result = await axios
+        .get(
+          `http://localhost:5000/motionchoices/${props.location.state.motionId}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
-        );
-        setMotionOwnerId(resp.data.owner_id.id);
-        setComplete(true);
-      })
-      .catch((e) => console.log(e));
+        )
+        .then(async (res) => {
+          setRestaurants(res.data);
+          console.log(res.data);
+          const resp = await axios.get(
+            `http://localhost:5000/motions/${props.location.state.motionId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+          setMotionOwnerId(resp.data.owner_id.id);
+          setComplete(true);
+        })
+        .catch((e) => {
+          console.log("here");
+          setRedirect(true);
+        });
+    }
   }, []);
 
-  if (motionId === null) {
+  if (redirect) {
     return <Redirect to="/" />;
   }
   //   const motionId = restaurants.map((a) => a.motion.id);

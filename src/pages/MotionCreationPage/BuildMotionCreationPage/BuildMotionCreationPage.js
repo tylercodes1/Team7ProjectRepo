@@ -21,6 +21,7 @@ export default function BuildMotionCreationPage(props) {
           setSelectedItems={(newSelected) =>
             props.setSelectedItems(newSelected)
           }
+          limit={props.type === "Friends" ? props.items.length : 4}
         />
         <div id="vertically-aligned-items">
           <SelectedItems

@@ -15,21 +15,22 @@ export default function MultiVotingSelector(props) {
           index,
           el,
           props.selectedItems,
-          props.setSelectedItems
+          props.setSelectedItems,
+          props.limit
         )
       )}
     </div>
   );
 }
 
-function BuildItem(type, index, item, selectedItems, setSelectedItems) {
+function BuildItem(type, index, item, selectedItems, setSelectedItems, limit) {
   return (
     // div is big because it has lots of conditional onclick-functionality
     <div
       className="selection-item"
       key={index}
       onClick={
-        selectedItems.length === 4
+        selectedItems.length === limit
           ? () => {
               // if 4 choices have already been selected AND
               // if the current item being clicked is being "unselected"

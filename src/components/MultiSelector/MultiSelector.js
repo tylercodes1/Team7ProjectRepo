@@ -16,7 +16,8 @@ export default function MultiSelector(props) {
             el,
             props.selectedItems,
             props.selectedItemIDs,
-            props.setSelectedItems
+            props.setSelectedItems,
+            props.limit
           )
         )}
     </div>
@@ -29,7 +30,8 @@ function BuildItem(
   item,
   selectedItems,
   selectedItemIDs,
-  setSelectedItems
+  setSelectedItems,
+  limit
 ) {
   return (
     // div is big because it has lots of conditional onclick-functionality
@@ -37,7 +39,7 @@ function BuildItem(
       className="selection-item"
       key={index}
       onClick={
-        selectedItems.length === 4
+        selectedItems.length === limit
           ? () => {
               // if 4 choices have already been selected AND
               // if the current item being clicked is being "unselected"
