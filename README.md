@@ -3,7 +3,7 @@ http://revature-project-2-bucket.s3-website.us-east-2.amazonaws.com/login
 
 Notes:
 - Do not invite yourself to a motion
-- Everyone invited *_must_* vote before the final is made
+- Everyone invited *_must_* vote before the the motion is closed
 - You can, but don't approve suggestions of the same name, they will show up as different votes on the client, but will be represented as the same vote on the backend
 
 ## (Food) Voting App
