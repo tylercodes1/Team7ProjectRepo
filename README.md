@@ -1,6 +1,10 @@
 ## Website
 http://revature-project-2-bucket.s3-website.us-east-2.amazonaws.com/login
 
+*Notes:
+- Do not invite yourself to a motion
+- Everyone invited must vote*
+
 ## (Food) Voting App
 One user starts a motion, many users vote on motion, the final motion that gets voted on is the destination that they agree to go to.
 
