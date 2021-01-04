@@ -11,12 +11,16 @@ import { IoMdSend } from "react-icons/io";
 import { IconContext } from "react-icons/lib";
 
 export default function BuildOwnerVotePage(props) {
-  // console.log("VotingOwnerPage props:");
+  console.log(localStorage.getItem("token"));
+  console.log("VotingOwnerPage props:");
   console.log(props);
   const [ownerSuggestion, setOwnerSuggestion] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [selectedRestaurantIDs, setSelectedRestaurantIDs] = useState([]);
   const [move, setMove] = useState(1);
+  const [confirmedVote, setConfirmedVote] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sentOnce, setSentOnce] = useState(false);
 
   useEffect(async (e) => {
     const result = await axios
@@ -44,7 +48,18 @@ export default function BuildOwnerVotePage(props) {
     setOwnerSuggestion(newList);
   }
 
-  function handleClose() {}
+  async function handleClose() {
+    console.log(props.motionID);
+    const res = await axios.put(
+      `http://localhost:5000/motions/${props.motionID}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+      }
+    );
+    console.log(res);
+  }
 
   switch (move) {
     case 1:
@@ -60,15 +75,50 @@ export default function BuildOwnerVotePage(props) {
               setSelectedItems={(newSelected) => handleVote(newSelected)}
               limit={1}
             />
-            <button className="submit-vote-button">
-              <IconContext.Provider
-                value={{
-                  size: "30px",
+            <div className="confirm-vote-view">
+              {sending && <div>sending</div>}
+              {!sending && sentOnce && <div>sent</div>}
+              <button
+                disabled={selectedRestaurantIDs.length !== 1}
+                className="submit-vote-button"
+                onClick={async () => {
+                  setSending(true);
+                  console.log(props.motionID);
+                  console.log(selectedRestaurantIDs[0]);
+                  await axios
+                    .put(
+                      "http://localhost:5000/motionuser",
+                      {
+                        motionId: props.motionID,
+                        voteid: selectedRestaurants[0].choice.id,
+                      },
+                      {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                      }
+                    )
+                    .then((el) => {
+                      setSentOnce(true);
+                      setSending(false);
+                    })
+                    .catch((el) => {
+                      setSentOnce(true);
+                      setSending(false);
+                    });
                 }}
               >
-                <IoMdSend />
-              </IconContext.Provider>
-            </button>
+                <IconContext.Provider
+                  value={{
+                    size: "30px",
+                  }}
+                >
+                  <IoMdSend />
+                </IconContext.Provider>
+              </button>
+            </div>
           </div>
           <button
             className="makeSuggestionBtn"
@@ -90,7 +140,10 @@ export default function BuildOwnerVotePage(props) {
           >
             You have {ownerSuggestion.length} suggestions
           </button>
-          <button className="skipSuggestionBtn" onClick={() => handleClose()}>
+          <button
+            className="skipSuggestionBtn"
+            onClick={async () => await handleClose()}
+          >
             Close Motion
           </button>
         </div>

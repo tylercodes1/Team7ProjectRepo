@@ -12,8 +12,10 @@ export default function BuildVotePage(props) {
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [selectedRestaurantIDs, setSelectedRestaurantIDs] = useState([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState([]);
-
+  const [sending, setSending] = useState(false);
+  const [sentOnce, setSentOnce] = useState(false);
   const [action, setAction] = useState(1);
+
   useEffect(async (e) => {
     const result = await axios
       .get("http://localhost:5000/choices", {
@@ -44,15 +46,50 @@ export default function BuildVotePage(props) {
               setSelectedItems={(newSelected) => handleVote(newSelected)}
               limit={1}
             />
-            <button className="submit-vote-button">
-              <IconContext.Provider
-                value={{
-                  size: "30px",
+            <div className="confirm-vote-view">
+              {sending && <div>sending</div>}
+              {!sending && sentOnce && <div>sent</div>}
+              <button
+                disabled={selectedRestaurantIDs.length !== 1}
+                className="submit-vote-button"
+                onClick={async () => {
+                  setSending(true);
+                  console.log(props.motionID);
+                  console.log(selectedRestaurantIDs[0]);
+                  await axios
+                    .put(
+                      "http://localhost:5000/motionuser",
+                      {
+                        motionId: props.motionID,
+                        voteid: selectedRestaurants[0].choice.id,
+                      },
+                      {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                      }
+                    )
+                    .then((el) => {
+                      setSentOnce(true);
+                      setSending(false);
+                    })
+                    .catch((el) => {
+                      setSentOnce(true);
+                      setSending(false);
+                    });
                 }}
               >
-                <IoMdSend />
-              </IconContext.Provider>
-            </button>
+                <IconContext.Provider
+                  value={{
+                    size: "30px",
+                  }}
+                >
+                  <IoMdSend />
+                </IconContext.Provider>
+              </button>
+            </div>
           </div>
           <button
             className="makeSuggestionBtn"
