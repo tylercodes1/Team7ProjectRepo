@@ -7,13 +7,11 @@ import loading from "react-useanimations/lib/loading";
 
 export default function BuildVotingItem(props) {
   const [sending, setSending] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [fail, setFail] = useState(false);
 
   return (
     <div className="build-voting-item" key={props.index}>
       <div className="selected-item">{props.el.choice_id.name}</div>
-      {sending === false && success === false && fail === false && (
+      {sending === false && (
         <div className="button-pairing" key={props.index}>
           <button
             className="check-button"
@@ -43,12 +41,10 @@ export default function BuildVotingItem(props) {
                 })
                 .then((e) => {
                   setSending(false);
-                  setSuccess(true);
                   props.removeSuggestion(props.el.suggestionId);
                 })
                 .catch((e) => {
                   setSending(false);
-                  setFail(true);
                 });
             }}
           >
@@ -73,12 +69,10 @@ export default function BuildVotingItem(props) {
                 )
                 .then((el) => {
                   setSending(false);
-                  setSuccess(true);
                   props.removeSuggestion(props.el.suggestionId);
                 })
                 .catch((e) => {
                   setSending(false);
-                  setFail(true);
                 });
             }}
           >

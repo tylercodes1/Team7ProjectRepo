@@ -9,6 +9,8 @@ import BuildMotionCreationPage from "./BuildMotionCreationPage/BuildMotionCreati
 import BuildCheckoutPage from "./BuildCheckoutPage/BuildCheckoutPage";
 import { addMotion, getChoices, getUsers } from "../../api/api";
 import Axios, { axios } from "axios";
+import UseAnimations from "react-useanimations";
+import loading from "react-useanimations/lib/loading";
 
 export default function MotionCreationPage() {
   const [restaurants, setRestaurants] = useState([]);
@@ -19,8 +21,7 @@ export default function MotionCreationPage() {
   const [selectedFriends, setSelectedFriends] = useState([]);
   const [action, setAction] = useState(1);
   const [open, setOpen] = useState(false);
-  const CancelToken = Axios.CancelToken;
-  const source = CancelToken.source();
+  const [complete, setComplete] = useState(false);
 
   function handleClick(type, selectedItems) {
     if (type === "Restaurants") {
@@ -56,7 +57,7 @@ export default function MotionCreationPage() {
         const friendsResult = await getUsers();
         setRestaurants(restaurantsResult);
         setFriends(friendsResult);
-
+        setComplete(true);
         if (action !== 3) {
           console.log(action);
           setTimeout(() => poll(), 2500);
@@ -82,39 +83,48 @@ export default function MotionCreationPage() {
   //console.log(restaurants);
   //console.log(selectedRestaurants);
 
-  switch (action) {
-    case 1:
-      // TODO API call for Restaurants
-      return (
-        <BuildMotionCreationPage
-          type="Restaurants"
-          items={restaurants}
-          selectedItems={selectedRestaurants}
-          selectedItemIDs={selectedRestaurantIDs}
-          setSelectedItems={handleRestaurants}
-          handleClick={handleClick}
-        />
-      );
+  switch (complete) {
+    case true:
+      switch (action) {
+        case 1:
+          // TODO API call for Restaurants
+          return (
+            <BuildMotionCreationPage
+              type="Restaurants"
+              items={restaurants}
+              selectedItems={selectedRestaurants}
+              selectedItemIDs={selectedRestaurantIDs}
+              setSelectedItems={handleRestaurants}
+              handleClick={handleClick}
+            />
+          );
 
-    case 2:
-      // TODO API Call for Friends
-      return (
-        <BuildMotionCreationPage
-          type="Friends"
-          items={friends}
-          selectedItems={selectedFriends}
-          selectedItemIDs={selectedFriendIDs}
-          setSelectedItems={handleFriends}
-          handleClick={handleClick}
-        />
-      );
+        case 2:
+          // TODO API Call for Friends
+          return (
+            <BuildMotionCreationPage
+              type="Friends"
+              items={friends}
+              selectedItems={selectedFriends}
+              selectedItemIDs={selectedFriendIDs}
+              setSelectedItems={handleFriends}
+              handleClick={handleClick}
+            />
+          );
 
-    case 3:
+        case 3:
+          return (
+            <BuildCheckoutPage
+              selectedFriends={selectedFriends}
+              selectedRestaurants={selectedRestaurants}
+            ></BuildCheckoutPage>
+          );
+      }
+    case false:
       return (
-        <BuildCheckoutPage
-          selectedFriends={selectedFriends}
-          selectedRestaurants={selectedRestaurants}
-        ></BuildCheckoutPage>
+        <div className="home-page">
+          <UseAnimations animation={loading} size={70} />
+        </div>
       );
   }
 }

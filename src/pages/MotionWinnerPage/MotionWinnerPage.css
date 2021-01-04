@@ -1,0 +1,17 @@
+.motion-winner-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 60px);
+  width: 100%;
+}
+
+.winning-choice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: lightgrey;
+  height: 250px;
+  width: 400px;
+}

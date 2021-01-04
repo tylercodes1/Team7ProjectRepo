@@ -15,9 +15,28 @@
 }
 
 .home-motion-tile {
+  cursor: pointer;
   background-color: lightgrey;
   height: 150px;
   width: 250px;
+}
 
-  /* color: grey; */
+.closed-motion-tile {
+  background-color: rgb(184, 209, 211, 0.5);
+}
+
+.motion-tile-text {
+  position: relative;
+  height: 100%;
+  z-index: 100;
+  opacity: 1;
+  color: black;
+}
+
+.invited-by {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding-right: 5px;
+  padding-bottom: 2px;
 }

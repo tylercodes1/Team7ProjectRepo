@@ -20,6 +20,7 @@ export default function MotionVotingPage(props) {
   const [motionOwnerId, setMotionOwnerId] = useState(-1);
   const [complete, setComplete] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [motionStatus, setMotionStatus] = useState(false);
 
   useEffect(async (e) => {
     if (props.location.state === undefined || props.location.state === null) {
@@ -48,7 +49,9 @@ export default function MotionVotingPage(props) {
           );
           // setMotionStatus(resp.data.status)
           setMotionOwnerId(resp.data.owner_id.id);
+          setMotionStatus(resp.data.status);
           setComplete(true);
+          return "";
         })
         .catch((e) => {
           console.log("here");
@@ -57,14 +60,18 @@ export default function MotionVotingPage(props) {
     }
   }, []);
 
-  // if (motionStatus) {
-  //    <Redirect to={{
-  //      pathname: "/motion-winner",
-  //      state: {
-  //        motionId: motionId,
-  //      },
-  //    }} />
-  // }
+  if (motionStatus) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/motion-winner",
+          state: {
+            motionId: motionId,
+          },
+        }}
+      />
+    );
+  }
 
   if (redirect) {
     return <Redirect to="/" />;
