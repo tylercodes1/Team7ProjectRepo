@@ -7,6 +7,8 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 export default function MakeSuggestionsDialog(props) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedItemIDs, setSelectedItemIDs] = useState([]);
+  const [sending, setSending] = useState(false);
+  const [sentOnce, setSentOnce] = useState(false);
 
   function handleVote(selectedItems) {
     setSelectedItems(selectedItems);
@@ -27,36 +29,47 @@ export default function MakeSuggestionsDialog(props) {
           setSelectedItems={(newSelected) => handleVote(newSelected)}
           limit={1}
         />
-        <button
-          className={
-            selectedItems.length == 1 && props.type === "Suggestion"
-              ? "move-on-button move-on"
-              : "move-on-button"
-          }
-          // disabled={selectedRestaurants.length !== 4}
-          // onClick={() => props.handleClick(props.type, props.selectedItems)}
-          onClick={async () => {
-            const result = await Axios.post(
-              "http://localhost:5000/suggestions",
-              { motionId: props.motionID, choiceId: selectedItems[0].id },
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Allow-Methods":
-                    "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                },
-              }
-            ).catch((e) => {
-              console.log(e);
-            });
-            console.log(result);
-          }}
-        >
-          <IconContext.Provider value={{ size: "30px" }}>
-            <FaLongArrowAltRight />
-          </IconContext.Provider>
-        </button>
+        <div className="confirm-vote-view">
+          {sending && <div>sending</div>}
+          {!sending && sentOnce && <div>sent</div>}
+          <button
+            className={
+              selectedItems.length == 1 && props.type === "Suggestion"
+                ? "move-on-button move-on"
+                : "move-on-button"
+            }
+            // disabled={selectedRestaurants.length !== 4}
+            // onClick={() => props.handleClick(props.type, props.selectedItems)}
+            onClick={async () => {
+              setSending(true);
+              const result = await Axios.post(
+                "http://localhost:5000/suggestions",
+                { motionId: props.motionID, choiceId: selectedItems[0].id },
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods":
+                      "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                  },
+                }
+              )
+                .then((res) => {
+                  setSending(false);
+                  setSentOnce(true);
+                })
+                .catch((e) => {
+                  setSending(false);
+                  console.log(e);
+                });
+              console.log(result);
+            }}
+          >
+            <IconContext.Provider value={{ size: "30px" }}>
+              <FaLongArrowAltRight />
+            </IconContext.Provider>
+          </button>
+        </div>
       </div>
     </div>
   );

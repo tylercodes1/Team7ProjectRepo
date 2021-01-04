@@ -81,7 +81,7 @@ export default function MotionVotingPage(props) {
   //   userId != motionOwnerId ?
   switch (complete) {
     case true:
-      return true ? (
+      return userId == motionOwnerId ? (
         <BuildOwnerVotePage
           type="Vote"
           motionChoices={motionChoices}
