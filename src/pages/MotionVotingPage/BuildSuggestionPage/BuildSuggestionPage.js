@@ -7,8 +7,9 @@ import axios from "axios";
 import { async } from "./../../../api/api";
 
 export default function BuildSuggestionPage(props) {
-  console.log(props.items);
-  console.log(props.selectedItems);
+  // console.log(props.items);
+  // console.log(props.selectedItems);
+  console.log(props);
 
   const choiceId = props.selectedItems.map((a) => a.id)[0];
   console.log("motionID: ", props.motionID);
@@ -39,18 +40,22 @@ export default function BuildSuggestionPage(props) {
           // disabled={selectedRestaurants.length !== 4}
           // onClick={() => props.handleClick(props.type, props.selectedItems)}
           onClick={async () => {
-            await axios.post(
-              "http://localhost:5000/suggestions",
-              { motionId: props.motionID, choiceId: choiceId },
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Allow-Methods":
-                    "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-                },
-              }
-            );
+            await axios
+              .post(
+                "http://localhost:5000/suggestions",
+                { motionId: props.motionID, choiceId: choiceId },
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods":
+                      "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+                  },
+                }
+              )
+              .catch((e) => {
+                console.log(e);
+              });
             props.handleClick(props.type, props.selectedItems);
           }}
         >

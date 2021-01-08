@@ -183,3 +183,5 @@ export async function getMotionChoices() {
 //   console.log(r.data);
 // })
 // }, 5000)
+
+export async function closeMotion() {}

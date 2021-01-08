@@ -7,13 +7,21 @@ import BuildFinalVotePage from "../BuildFinalVotePage/BuildFinalVotePage";
 import axios from "axios";
 import SuggestionsDialog from "./SuggestionsDialog";
 import { CustomDialog } from "react-st-modal";
+import { IoMdSend } from "react-icons/io";
+import { IconContext } from "react-icons/lib";
 
 export default function BuildOwnerVotePage(props) {
+  console.log(localStorage.getItem("token"));
+  console.log("VotingOwnerPage props:");
   console.log(props);
   const [ownerSuggestion, setOwnerSuggestion] = useState([]);
   const [selectedRestaurants, setSelectedRestaurants] = useState([]);
+  const [selectedRestaurantIDs, setSelectedRestaurantIDs] = useState([]);
   const [move, setMove] = useState(1);
-  const num = ownerSuggestion.map((a) => a.choice_id.name).length;
+  const [confirmedVote, setConfirmedVote] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sentOnce, setSentOnce] = useState(false);
+
   useEffect(async (e) => {
     const result = await axios
       .get("http://localhost:5000/suggestions", {
@@ -24,17 +32,35 @@ export default function BuildOwnerVotePage(props) {
       });
   }, []);
 
+  function handleVote(selectedItems) {
+    setSelectedRestaurants(selectedItems);
+    setSelectedRestaurantIDs(selectedItems.map((el) => el.id));
+  }
+
   function handleUserSuggestion() {
-    setMove(move + 1);
+    // setMove(move + 1);
   }
   function handleClick() {
     setMove(move + 1);
   }
-  function triggerDelete(index) {
-    setOwnerSuggestion(
-      ownerSuggestion.filter((l) => l !== ownerSuggestion[index])
-    );
+  function setOnaSuggestions(newList) {
+    console.log(newList);
+    setOwnerSuggestion(newList);
   }
+
+  async function handleClose() {
+    console.log(props.motionID);
+    const res = await axios.put(
+      `http://localhost:5000/motions/${props.motionID}`,
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+      }
+    );
+    console.log(res);
+  }
+
   switch (move) {
     case 1:
       return (
@@ -43,51 +69,107 @@ export default function BuildOwnerVotePage(props) {
           <div className="VotePage-view">
             <MultiVotingSelector
               type={props.type}
-              items={props.items}
+              items={props.motionChoices}
               selectedItems={selectedRestaurants}
-              setSelectedItems={(newSelected) =>
-                setSelectedRestaurants(newSelected)
-              }
+              selectedItemIDs={selectedRestaurantIDs}
+              setSelectedItems={(newSelected) => handleVote(newSelected)}
               limit={1}
             />
+            <div className="confirm-vote-view">
+              {sending && <div>sending</div>}
+              {!sending && sentOnce && <div>sent</div>}
+              <button
+                disabled={selectedRestaurantIDs.length !== 1}
+                className="submit-vote-button"
+                onClick={async () => {
+                  setSending(true);
+                  console.log(props.motionID);
+                  console.log(selectedRestaurantIDs[0]);
+                  await axios
+                    .put(
+                      "http://localhost:5000/motionuser",
+                      {
+                        motionId: props.motionID,
+                        voteid: selectedRestaurants[0].choice.id,
+                      },
+                      {
+                        headers: {
+                          Authorization: `Bearer ${localStorage.getItem(
+                            "token"
+                          )}`,
+                        },
+                      }
+                    )
+                    .then((el) => {
+                      setSentOnce(true);
+                      setSending(false);
+                    })
+                    .catch((el) => {
+                      setSentOnce(true);
+                      setSending(false);
+                    });
+                }}
+              >
+                <IconContext.Provider
+                  value={{
+                    size: "30px",
+                  }}
+                >
+                  <IoMdSend />
+                </IconContext.Provider>
+              </button>
+            </div>
           </div>
           <button
             className="makeSuggestionBtn"
             onClick={async () => {
-              const result = await CustomDialog(<SuggestionsDialog />, {
-                title: "Custom Dialog",
-                showCloseIcon: true,
-              });
-              console.log(result);
+              await CustomDialog(
+                <SuggestionsDialog
+                  type="Owner_Suggestion"
+                  items={ownerSuggestion}
+                  handleUserSuggestion={handleUserSuggestion}
+                  setOnaSuggestions={(newList) => setOnaSuggestions(newList)}
+                />,
+                {
+                  title: "Custom Dialog",
+                  isCanClose: true,
+                  showCloseIcon: true,
+                }
+              );
             }}
           >
-            You have {num} suggestions
+            You have {ownerSuggestion.length} suggestions
           </button>
-          <button className="skipSuggestionBtn">Close Motion</button>
+          <button
+            className="skipSuggestionBtn"
+            onClick={async () => await handleClose()}
+          >
+            Close Motion
+          </button>
         </div>
       );
-    case 2:
-      return (
-        <BuildOwnerSuggestionPage
-          type="Owner_Suggestion"
-          items={ownerSuggestion}
-          handleUserSuggestion={handleUserSuggestion}
-          triggerDelete={triggerDelete}
-        />
-      );
-    case 3:
-      return (
-        <BuildFinalVotePage
-          type="Vote-Page"
-          items={props.items}
-          selectedItems={selectedRestaurants}
-          setSelectedItems={(newSelected) =>
-            setSelectedRestaurants(newSelected)
-          }
-          handleClick={handleClick}
-        />
-      );
-    case 4:
-      return <BuildMotionWinnerPage />;
+    // case 2:
+    //   return (
+    //     <BuildOwnerSuggestionPage
+    //       type="Owner_Suggestion"
+    //       items={ownerSuggestion}
+    //       handleUserSuggestion={handleUserSuggestion}
+    //       triggerDelete={triggerDelete}
+    //     />
+    //   );
+    // case 3:
+    //   return (
+    //     <BuildFinalVotePage
+    //       type="Vote-Page"
+    //       items={props.items}
+    //       selectedItems={selectedRestaurants}
+    //       setSelectedItems={(newSelected) =>
+    //         setSelectedRestaurants(newSelected)
+    //       }
+    //       handleClick={handleClick}
+    //     />
+    //   );
+    // case 4:
+    //   return <BuildMotionWinnerPage />;
   }
 }

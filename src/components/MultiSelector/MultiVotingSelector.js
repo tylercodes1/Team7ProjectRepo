@@ -4,9 +4,7 @@ import { GoCheck } from "react-icons/go";
 import { IconContext } from "react-icons";
 
 export default function MultiVotingSelector(props) {
-  console.log(props.selectedItems.id);
-  console.log(props.items.id);
-
+  console.log(props);
   return (
     <div className="multi-selector">
       {props.items.map((el, index) =>
@@ -15,6 +13,7 @@ export default function MultiVotingSelector(props) {
           index,
           el,
           props.selectedItems,
+          props.selectedItemIDs,
           props.setSelectedItems,
           props.limit
         )
@@ -23,7 +22,15 @@ export default function MultiVotingSelector(props) {
   );
 }
 
-function BuildItem(type, index, item, selectedItems, setSelectedItems, limit) {
+function BuildItem(
+  type,
+  index,
+  item,
+  selectedItems,
+  selectedItemIDs,
+  setSelectedItems,
+  limit
+) {
   return (
     // div is big because it has lots of conditional onclick-functionality
     <div
@@ -32,24 +39,31 @@ function BuildItem(type, index, item, selectedItems, setSelectedItems, limit) {
       onClick={
         selectedItems.length === limit
           ? () => {
-              // if 4 choices have already been selected AND
+              // if {limit} choices have already been selected AND
               // if the current item being clicked is being "unselected"
               // unselect item from list
-              if (selectedItems.includes(item)) {
+              if (selectedItemIDs.includes(item.id)) {
                 setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
+              } else {
+                console.log(item);
+                console.log(item.id);
+                selectedItems.map((e) => console.log(e.id));
+                console.log(selectedItems.includes(146));
               }
             }
           : () => {
-              if (selectedItems.includes(item)) {
+              if (selectedItemIDs.includes(item.id)) {
+                console.log("remove");
                 setSelectedItems(selectedItems.filter((i) => i.id !== item.id));
               } else {
+                console.log("adds");
                 setSelectedItems([...selectedItems, item]);
               }
             }
       }
     >
       {/* Conditionally rendered checkmark */}
-      {selectedItems.includes(item) && (
+      {selectedItemIDs.includes(item.id) && (
         <div className="checked-item">
           <IconContext.Provider
             value={{

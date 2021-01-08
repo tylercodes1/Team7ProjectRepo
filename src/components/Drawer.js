@@ -40,4 +40,10 @@ export const DrawerData = [
     icon: <GiIcons.GiVote />,
     cName: "nav-text",
   },
+  {
+    title: "Logout",
+    path: "/login",
+    icon: <IoIcons.IoIosLogOut />,
+    cName: "nav-text logout",
+  },
 ];
