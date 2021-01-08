@@ -46,10 +46,11 @@ export default function HomePage() {
 
   switch (complete) {
     case true:
-      if (motions === undefined || motions === null) {
-        localStorage.clear();
-        alert("Servers are down");
-        return <Redirect to="login" />;
+      if (
+        localStorage.getItem("token") === null ||
+        localStorage.getItem("token") === undefined
+      ) {
+        return <Redirect to="/login" />;
       }
       return (
         <>

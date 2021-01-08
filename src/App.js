@@ -16,6 +16,7 @@ import MotionCreationPage from "./pages/MotionCreationPage/MotionCreationPage";
 import MotionVotingPage from "./pages/MotionVotingPage/MotionVotingPage";
 
 import MotionPage from "./pages/Motion/MotionPage";
+import MotionWinnerPage from "./pages/MotionWinnerPage/MotionWinnerPage";
 
 function App() {
   const [background, setBackground] = useState(false);
@@ -33,7 +34,7 @@ function App() {
           <Route exact path="/motion-creation" component={MotionCreationPage} />
           <Route exact path="/motion-vote" component={MotionVotingPage} />
           <Route exact path="/reduxTest" component={TestRedux} />
-
+          <Route exact path="/motion-winner" component={MotionWinnerPage} />
           <Route path="/" render={() => <div>404 NOT FOUND :)</div>} />
         </Switch>
       </Router>

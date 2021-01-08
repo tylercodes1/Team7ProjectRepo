@@ -52,10 +52,9 @@ export default function BuildOwnerVotePage(props) {
     console.log(props.motionID);
     const res = await axios.put(
       `http://localhost:5000/motions/${props.motionID}`,
+      null,
       {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
       }
     );
     console.log(res);

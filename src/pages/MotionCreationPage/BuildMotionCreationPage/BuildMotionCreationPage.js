@@ -1,4 +1,4 @@
-import { React } from "react";
+import React from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import MultiSelector from "./../../../components/MultiSelector/MultiSelector.js";
@@ -6,6 +6,7 @@ import SelectedItems from "./../../../components/MultiSelector/SelectedItems/Sel
 
 export default function BuildMotionCreationPage(props) {
   //console.log(props.items.map(i => i.name).join('\n'));
+
   return (
     <div className="motion-creation-page">
       {props.type === "Restaurants" && (

@@ -1,12 +1,12 @@
-
-.move-on-button.move-on{
-    display: inline;
-    
+.move-on-button.move-on {
+  display: inline;
 }
 .Suggestion-window {
-    height: 40vh;
-    background-color: paleturquoise;
+  height: 40vh;
+  background-color: paleturquoise;
+  /* scroll-behavior: scroll; */
+  /* overflow-y: auto; */
 }
 .selected-items {
-    flex-direction: row;
+  flex-direction: row;
 }
